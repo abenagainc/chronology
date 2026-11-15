@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Chronology X — Data Inspector</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, "Segoe UI", sans-serif; margin: 0; padding: 1.5rem;
+         background: var(--bg, #fafafa); color: var(--fg, #222); }
+  h1 { font-size: 1.15rem; margin: 0 0 .3rem; }
+  h2 { font-size: .95rem; margin: 1.4rem 0 .4rem; border-bottom: 1px solid #ccc2; padding-bottom: .2rem; }
+  .note { color: #b26a00; font-size: .82rem; max-width: 60rem; margin-bottom: 1rem; }
+  table { border-collapse: collapse; font-size: .78rem; width: 100%; max-width: 70rem; }
+  th, td { text-align: left; padding: .25rem .5rem; border: 1px solid #ccc4; vertical-align: top; }
+  th { background: #ececec88; position: sticky; top: 0; }
+  tr:hover td { background: #3b82f614; }
+  .status-accepted { color: #15803d; font-weight: 600; }
+  .status-proposed { color: #b45309; }
+  .status-rejected, .status-superseded { color: #9ca3af; }
+  .mono { font-family: ui-monospace, monospace; font-size: .72rem; }
+  .err { color: #dc2626; }
+  #footer { margin-top: 2rem; font-size: .75rem; color: #666; }
+  nav a { margin-right: 1rem; }
+</style>
+</head>
+<body>
+<h1>Chronology X — Data Inspector <span style="font-weight:400;font-size:.8rem">(anon read path, accepted claims only)</span></h1>
+<p class="note">⚠ Phase 0 inspector — reads live data through the anon key under RLS: you see exactly what a public visitor sees. Any proposed/rejected claim stays invisible here.</p>
+<nav><a href="#bubbles">bubbles</a><a href="#nodes">nodes</a><a href="#links</a><a href="#sources">sources</a><a href="#passages">passages</a><a href="#claims">claims</a><a href="#registry">type registry</a></nav>
+<div id="app">Loading…</div>
+<div id="footer">Chronology X · Historical Network Graph v2 · spec §13 frontend grows from Phase 0</div>
+
+<script>
+const SUPABASE_URL = "https://vggraiczoskzzqchcvaa.supabase.co";
+const ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZnZ3JhaWN6b3NrenpxY2hjdmFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ3MDU4OTgsImV4cCI6MjExMDI4MTg5OH0.4w9kzGvzSq5CND8sCZ1-Ckqfcg79hIOVipg7UUHRqDw";
+
+async function fetchTable(name, order = "created_at", limit = 200) {
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/${name}?order=${order}&limit=${limit}`, {
+    headers: { apikey: ANON_KEY, Authorization: `Bearer ${ANON_KEY}` },
+  });
+  if (!r.ok) throw new Error(`${name}: HTTP ${r.status}`);
+  return r.json();
+}
+
+function cell(v) {
+  if (v === null || v === undefined) return "";
+  if (typeof v === "object") return `<span class="mono">${JSON.stringify(v)}</span>`;
+  const s = String(v);
+  return s.length > 60 ? `<span title="${s.replace(/"/g, "&quot;")}">${s.slice(0, 57)}…</span>` : s;
+}
+
+function renderTable(rows, cols) {
+  if (!rows.length) return "<p><i>(empty)</i></p>";
+  const head = cols.map(c => `<th>${c}</th>`).join("");
+  const body = rows.map(r => `<tr>${cols.map(c => {
+    const v = c.includes("status") && r[c] ? `<span class="status-${r[c]}">${r[c]}</span>` : cell(r[c]);
+    return `<td>${v}</td>`;
+  }).join("")}</tr>`).join("");
+  return `<table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
+}
+
+const SECTIONS = [
+  ["bubbles", "Bubbles", ["id", "label", "status", "created_by", "created_at"], "label"],
+  ["nodes", "Nodes", ["id", "bubble_id", "node_type_id", "name_form", "status", "created_at"], "created_at"],
+  ["links", "Links", ["id", "bubble_id", "link_type_id", "from_node_id", "to_node_id", "status"], "created_at"],
+  ["sources", "Sources", ["id", "source_type_id", "label", "status", "date_original", "intake_passed"], "label"],
+  ["passages", "Passages", ["id", "source_id", "locator", "quote"], "created_at"],
+  ["claims", "Claims", ["id", "subject_node_id", "subject_source_id", "predicate_id", "value", "payload", "date_original", "date_day_number", "status", "supersedes_id"], "created_at"],
+  ["type_registry", "Type registry", ["kind", "key", "label", "payload_json_schema"], "kind"],
+];
+
+async function main() {
+  const app = document.getElementById("app");
+  let html = "";
+  for (const [table, title, cols, order] of SECTIONS) {
+    html += `<h2 id="${table}">${title}</h2>`;
+    try {
+      const rows = await fetchTable(table, order);
+      html += renderTable(rows, cols);
+    } catch (e) {
+      html += `<p class="err">${e.message}</p>`;
+    }
+  }
+  app.innerHTML = html;
+}
+main();
+</script>
+</body>
+</html>

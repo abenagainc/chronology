@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Chronology X — Review Queue</title>
+<script src="vendor/supabase.js"></script>
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, "Segoe UI", sans-serif; margin: 0; padding: 1.5rem;
+         background: #fafafa; color: #222; }
+  h1 { font-size: 1.15rem; margin: 0 0 .3rem; }
+  .note { color: #555; font-size: .82rem; max-width: 60rem; margin-bottom: 1rem; }
+  #login { max-width: 24rem; padding: 1.2rem; border: 1px solid #ccc3; border-radius: 8px;
+           background: #fff; }
+  #login input { width: 100%; box-sizing: border-box; padding: .5rem; margin: .4rem 0 1rem;
+                 border: 1px solid #ccc5; border-radius: 5px; font: inherit; }
+  #login button { font: inherit; padding: .45rem 1rem; border-radius: 6px; border: 1px solid #2563eb;
+                  background: #2563eb; color: #fff; cursor: pointer; width: 100%; }
+  .bar { position: sticky; top: 0; background: #fafafa; padding: .6rem 0;
+         border-bottom: 1px solid #ccc2; display: flex; gap: 1rem; align-items: center; z-index: 5; }
+  .bar b { font-size: .9rem; }
+  button.small { font: inherit; padding: .3rem .8rem; border-radius: 5px; cursor: pointer;
+                 border: 1px solid #ccc3; background: #fff; }
+  .btn-accept { background: #15803d1a; border-color: #15803d; color: #15803d; }
+  .btn-reject { background: #dc26261a; border-color: #dc2626; color: #dc2626; }
+  .btn-all { background: #3b82f61a; border-color: #3b82f6; color: #2563eb; }
+  table { border-collapse: collapse; font-size: .8rem; width: 100%; max-width: 75rem; }
+  th, td { text-align: left; padding: .4rem .55rem; border: 1px solid #ccc4; vertical-align: top; }
+  th { background: #ececec88; position: sticky; top: 3rem; }
+  tr.decided td { opacity: .45; }
+  tr.decided button { pointer-events: none; opacity: .3; }
+  .mono { font-family: ui-monospace, monospace; font-size: .72rem; }
+  blockquote { margin: .15rem 0 0; padding: .3rem .5rem; background: #f4f4f4;
+               border-left: 3px solid #999; font-style: italic; color: #444; max-width: 34rem; }
+  .tag { font-size: .68rem; padding: .05rem .4rem; border-radius: 99px; background: #e5e7eb; color: #374151; }
+  .err { color: #dc2626; font-size: .8rem; min-height: 1.1rem; }
+  .whoami { font-size: .78rem; color: #666; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+<h1>Chronology X — Review Queue (remote)</h1>
+<p class="note">Owner review, Stage 1 (spec §3). Login with the magic link (D7 — Supabase email auth).
+Status changes are enforced by the database: only reviewer/owner may transition proposed → accepted/rejected
+(RLS + trigger). Rejected claims stay retained, admin-only (D4).</p>
+
+<div id="login">
+  <b>Sign in to review</b>
+  <input id="email" type="email" placeholder="your email" autocomplete="email">
+  <button id="send-magic">Send magic link</button>
+  <div class="err" id="login-msg"></div>
+  <div class="note">After clicking the link in the email you'll return here signed in.</div>
+</div>
+
+<div id="queue" class="hidden">
+  <div class="bar">
+    <b id="count">…</b>
+    <button class="small btn-all" id="accept-all">Accept all remaining</button>
+    <button class="small" id="refresh">Refresh</button>
+    <button class="small" id="logout">Sign out</button>
+    <span class="whoami" id="whoami"></span>
+  </div>
+  <div class="err" id="err"></div>
+  <table id="q"><thead><tr>
+    <th>Subject</th><th>Predicate</th><th>Value / date</th><th>Passage (verbatim)</th><th>Action</th>
+  </tr></thead><tbody></tbody></table>
+</div>
+
+<script>
+const SUPABASE_URL = "https://vggraiczoskzzqchcvaa.supabase.co";
+const ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZnZ3JhaWN6b3NrenpxY2hjdmFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ3MDU4OTgsImV4cCI6MjExMDI4MTg5OH0.4w9kzGvzSq5CND8sCZ1-Ckqfcg79hIOVipg7UUHRqDw";
+const sb = window.supabase.createClient(SUPABASE_URL, ANON_KEY);
+const PRED_LABELS = {}; // filled from type_registry
+
+async function init() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (session) showQueue(); else showLogin();
+  sb.auth.onAuthStateChange((_e, s) => { if (s) { showQueue(); } });
+}
+
+function showLogin() {
+  document.getElementById('login').classList.remove('hidden');
+  document.getElementById('queue').classList.add('hidden');
+}
+function showQueue() {
+  document.getElementById('login').classList.add('hidden');
+  document.getElementById('queue').classList.remove('hidden');
+  const user = sb.auth.getSession().then(({data}) => {
+    document.getElementById('whoami').textContent =
+      data.session ? data.session.user.email : '';
+  });
+  load();
+}
+
+document.getElementById('send-magic').onclick = async () => {
+  const email = document.getElementById('email').value.trim();
+  const msg = document.getElementById('login-msg');
+  if (!email) { msg.textContent = 'enter your email'; return; }
+  const { error } = await sb.auth.signInWithOtp({
+    email,
+    options: { emailRedirectTo: location.href },
+  });
+  msg.textContent = error ? error.message : 'magic link sent — check your email';
+};
+
+document.getElementById('logout').onclick = () => sb.auth.signOut();
+
+async function load() {
+  // proposed claims
+  const { data: claims, error } = await sb.from('claim')
+    .select('id,subject_node_id,subject_source_id,predicate_id,value,date_original,status,passage_id')
+    .eq('status', 'proposed').order('created_at');
+  if (error) { document.getElementById('err').textContent = error.message; return; }
+  // lookups
+  const [{ data: nodes }, { data: sources }, { data: passages }, { data: registry }] = await Promise.all([
+    sb.from('node').select('id,name_form'),
+    sb.from('source').select('id,label'),
+    sb.from('passage').select('id,locator,quote'),
+    sb.from('type_registry').select('id,kind,key,label'),
+  ]);
+  const n = Object.fromEntries((nodes||[]).map(x => [x.id, x.name_form]));
+  const s = Object.fromEntries((sources||[]).map(x => [x.id, x.label]));
+  const p = Object.fromEntries((passages||[]).map(x => [x.id, x]));
+  const reg = Object.fromEntries((registry||[]).map(x => [x.id, x]));
+
+  document.getElementById('count').textContent = `${claims.length} proposal(s) pending`;
+  const tb = document.querySelector('#q tbody');
+  tb.innerHTML = '';
+  for (const c of claims) {
+    const tr = document.createElement('tr');
+    const subj = n[c.subject_node_id] || s[c.subject_source_id] || '?';
+    const pas = p[c.passage_id] || {};
+    const pred = reg[c.predicate_id] || {};
+    tr.innerHTML = `
+      <td><b>${subj}</b><br><span class="tag">${c.subject_source_id ? 'source' : 'node'}</span></td>
+      <td>${pred.label || pred.key || ''}</td>
+      <td>${c.value || ''}${c.date_original ? `<br><span class="mono">${c.date_original}</span>` : ''}</td>
+      <td>${pas.quote ? '<blockquote>' + pas.quote + '</blockquote><span class="mono">' +
+            JSON.stringify(pas.locator) + '</span>' : ''}</td>
+      <td><button class="small btn-accept">accept</button>
+          <button class="small btn-reject">reject</button></td>`;
+    const [acc, rej] = tr.querySelectorAll('button');
+    acc.onclick = () => decide(c.id, 'accepted', tr);
+    rej.onclick = () => decide(c.id, 'rejected', tr);
+    tb.appendChild(tr);
+  }
+}
+
+async function decide(id, status, tr) {
+  const { error } = await sb.from('claim').update({ status }).eq('id', id);
+  if (error) { document.getElementById('err').textContent = error.message; return; }
+  tr.classList.add('decided');
+  const c = document.getElementById('count');
+  c.textContent = (parseInt(c.textContent) - 1) + ' proposal(s) pending';
+}
+
+document.getElementById('accept-all').onclick = async () => {
+  const rows = [...document.querySelectorAll('#q tbody tr:not(.decided)')];
+  if (!confirm(`Accept ALL ${rows.length} remaining proposals?`)) return;
+  for (const tr of rows) {
+    const acc = tr.querySelector('.btn-accept');
+    acc.click();
+    await new Promise(r => setTimeout(r, 120));  // gentle on rate limits
+  }
+};
+document.getElementById('refresh').onclick = load;
+init();
+</script>
+</body>
+</html>
