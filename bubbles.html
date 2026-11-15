@@ -24,7 +24,7 @@
   #vt-scroll { overflow: auto; height: 74vh; border: 1px solid #ccc2; border-radius: 6px;
     background: #fff; position: relative; }
   #vt-inner { position: relative; display: flex; min-width: max-content; }
-  .col { flex: 0 0 300px; position: relative; border-right: 1px solid #e4e4e4; }
+  .col { flex: 0 0 360px; position: relative; border-right: 1px solid #e4e4e4; }
   .col.axis-col { flex: 0 0 64px; }
   .col-head { position: sticky; top: 0; z-index: 5; background: #f0f0f0ee; padding: .45rem .5rem;
     font-size: .78rem; font-weight: 600; border-bottom: 2px solid #4f7cdf55; min-height: 3.6rem;
@@ -39,7 +39,7 @@
   .yearlab { position: absolute; right: .35rem; transform: translateY(-50%);
     font-size: .68rem; color: #999; }
 
-  .it { position: absolute; left: 6px; right: 6px; border: 1px solid; border-radius: 5px;
+  .it { position: absolute; left: 6px; border: 1px solid; border-radius: 5px;
     padding: .18rem .4rem; font-size: .7rem; line-height: 1.15; background: #fff;
     overflow: hidden; cursor: default; }
   .it small { color: #667; font-size: .62rem; }
@@ -118,16 +118,8 @@ function render() {
     const body = document.createElement('div'); body.className = 'col-body';
     body.style.height = BODYH + 'px';
 
-    const addItem = (it) => {
-      const el = document.createElement('div');
-      el.className = 'it ' + it.cls;
-      el.style.top = y2t(it.y1) + 'px';
-      if (it.y2 !== undefined) el.style.height = Math.max(((it.y2 - it.y1) * PPY), 14) + 'px';
-      el.innerHTML = it.html;
-      el.title = it.title;
-      body.appendChild(el);
-    };
-
+    // ---- collect this column's items, then lane-pack them (no overlaps) ----
+    const colItems = [];
     for (const c of b.calendar_changes) {
       if (c.year_display === null || c.year_display === undefined) continue;
       const y = c.year_display;
@@ -135,11 +127,11 @@ function render() {
         : (c.change_type || '').includes('reform') ? 'reform'
         : 'cal';
       if (cls === 'state' && c.span_until_display !== null && c.span_until_display !== undefined) {
-        addItem({ y1: y, y2: c.span_until_display, cls,
+        colItems.push({ y1: y, y2: c.span_until_display, cls,
           html: `${esc(c.name)}<br><small>${esc(c.span_until_original || '')}</small>`,
           title: `${c.name}\nstate: ${c.date_original} → ${c.span_until_original}` });
       } else {
-        addItem({ y1: y, cls,
+        colItems.push({ y1: y, cls,
           html: `${esc(c.name)}<br><small>${esc(c.date_original)} · ${esc(c.change_type)}</small>`,
           title: `${c.name}\n${c.change_type}\ndate as stated: ${c.date_original}` });
       }
@@ -148,9 +140,52 @@ function render() {
       const ys = (e.epoch_year !== null && e.epoch_year !== undefined) ? e.epoch_year
         : parseInt(String(e.epoch_date || '').replace(/[^0-9-]/g, ''), 10);
       if (isNaN(ys)) continue;
-      addItem({ y1: ys, y2: 2100, cls: 'era',
+      colItems.push({ y1: ys, y2: 2100, cls: 'era',
         html: `${esc(e.name)}<br><small>epoch: ${esc(e.epoch || '')}</small>`,
         title: `${e.name}\nepoch: ${e.epoch}\nas stated: ${e.epoch_date}` });
+    }
+
+    // ---- lane packing: NO overlaps, measured heights, generous gap ----
+    colItems.sort((a, b2) => a.y1 - b2.y1 || (a.y2 ?? a.y1) - (b2.y2 ?? b2.y1));
+    // measure each item's real height with a throwaway render (off-DOM)
+    const measurer = document.createElement('div');
+    measurer.style.cssText = 'position:absolute;left:-9999px;top:0;width:300px;';
+    document.body.appendChild(measurer);
+    for (const it of colItems) {
+      measurer.innerHTML = it.html;
+      it.hPx = Math.max(measurer.getBoundingClientRect().height + 16, 40);
+      const yEnd = it.y2 !== undefined ? Math.max(it.y2, it.y1 + it.hPx / PPY)
+                                       : it.y1 + it.hPx / PPY;
+      it.yEnd = yEnd;
+    }
+    measurer.remove();
+
+    const GAP_PX = 16;                          // gap between stacked items
+    const laneEnds = [];                        // lane i free at px-position laneEnds[i]
+    for (const it of colItems) {
+      const startPx = y2t(it.y1);
+      const endPx = y2t(it.yEnd);
+      let lane = laneEnds.findIndex(end => startPx >= end + GAP_PX);
+      if (lane === -1) { lane = laneEnds.length; laneEnds.push(-1e9); }
+      laneEnds[lane] = Math.max(laneEnds[lane], endPx);
+      it.lane = lane;
+    }
+    // one strip per lane (no wrapping = no overlaps); widen column if many lanes
+    const nLanes = Math.max(laneEnds.length, 1);
+    const MIN_STRIP = 110;
+    let stride = Math.max(Math.floor((360 - 8) / nLanes), MIN_STRIP);
+    const colW = 8 + nLanes * stride;
+    col.style.flexBasis = colW + 'px';
+    for (const it of colItems) {
+      const el = document.createElement('div');
+      el.className = 'it ' + it.cls;
+      el.style.left = (4 + it.lane * stride) + 'px';
+      el.style.width = (stride - 6) + 'px';
+      el.style.top = y2t(it.y1) + 'px';
+      if (it.y2 !== undefined) el.style.height = Math.max(y2t(it.yEnd) - y2t(it.y1), 20) + 'px';
+      el.innerHTML = it.html;
+      el.title = it.title;
+      body.appendChild(el);
     }
     col.appendChild(body);
     inner.appendChild(col);
