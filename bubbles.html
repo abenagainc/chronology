@@ -20,6 +20,7 @@
   .vis-item.b-cal.reform { background: #c25f0e2e; border-color: #c25f0e; }
   .vis-item.b-era { background: #3f9d6b2e; border-color: #3f9d6b; }
   .vis-item.b-rename { background: #7c3aed2e; border-color: #7c3aed; }
+  .vis-item.b-state { background: #2563eb22; border-color: #2563eb; font-size: .72rem; }
   /* group styling: bubble rows bold, sub-lanes smaller */
   .vis-label { font-size: .82rem; }
   .vis-group-level-0 { font-weight: 600; background: #f0f0f0aa; }
@@ -123,19 +124,29 @@ async function load() {
     if (hasEra)    sub.era = subIds[k++];
     if (hasRename) sub.rename = subIds[k++];
 
-    // ---- structure items (stacked) ----
-    let si = 0;
+    // ---- structure items (stacked); calendar STATES render as back-to-back ranges ----
     for (const c of b.calendar_changes) {
       const y = c.year_display;
       if (y === null || y === undefined) continue;
+      const isState = (c.change_type === 'calendar state');
       const reform = (c.change_type || '').includes('reform');
-      items.add({
-        group: sub.struct, id: gkey + '-c-' + c.id,
-        content: `${c.name}<br><small>${c.date_original} · ${c.change_type}</small>`,
-        start: ymd(y),
-        className: 'b-cal' + (reform ? ' reform' : ''),
-        title: `${c.name}\nchange type: ${c.change_type}\ndate as stated: ${c.date_original}\nstatus: ${c.status}`,
-      });
+      if (isState) {
+        items.add({
+          group: sub.struct, id: gkey + '-c-' + c.id,
+          content: `${c.name}<br><small>${c.date_original} → ${c.span_until_display || ''}</small>`,
+          start: ymd(y), end: ymd(c.span_until_display !== null && c.span_until_display !== undefined ? c.span_until_display : y + 1),
+          type: 'range', className: 'b-state',
+          title: `${c.name}\ncalendar state: ${c.date_original} → ${c.span_until_display}\nstatus: ${c.status}`,
+        });
+      } else {
+        items.add({
+          group: sub.struct, id: gkey + '-c-' + c.id,
+          content: `${c.name}<br><small>${c.date_original} · ${c.change_type}</small>`,
+          start: ymd(y),
+          className: 'b-cal' + (reform ? ' reform' : ''),
+          title: `${c.name}\nchange type: ${c.change_type}\ndate as stated: ${c.date_original}\nstatus: ${c.status}`,
+        });
+      }
     }
 
     // ---- era bands ----

@@ -15,6 +15,8 @@
           "change_type": "era change (adoption)",
           "date_original": "4th century",
           "year_display": 4,
+          "span_until_display": null,
+          "span_until_original": null,
           "status": "proposed",
           "node_kind": "event"
         },
@@ -24,6 +26,8 @@
           "change_type": "era change (continuation)",
           "date_original": "from 5th century",
           "year_display": null,
+          "span_until_display": null,
+          "span_until_original": null,
           "status": "proposed",
           "node_kind": "event"
         }
@@ -69,6 +73,8 @@
           "change_type": "renaming",
           "date_original": "44 BCE",
           "year_display": -44,
+          "span_until_display": null,
+          "span_until_original": null,
           "status": "proposed",
           "node_kind": "calendar"
         },
@@ -78,6 +84,8 @@
           "change_type": "renaming",
           "date_original": "8 BCE",
           "year_display": -8,
+          "span_until_display": null,
+          "span_until_original": null,
           "status": "proposed",
           "node_kind": "calendar"
         },
@@ -87,6 +95,8 @@
           "change_type": "stabilization",
           "date_original": "AD 4 (resumption; AD 8 first leap year under the standard reconstruction)",
           "year_display": 4,
+          "span_until_display": null,
+          "span_until_original": null,
           "status": "proposed",
           "node_kind": "calendar"
         },
@@ -96,6 +106,8 @@
           "change_type": "structural add-on",
           "date_original": "1st century AD",
           "year_display": 1,
+          "span_until_display": null,
+          "span_until_original": null,
           "status": "proposed",
           "node_kind": "calendar"
         },
@@ -105,6 +117,41 @@
           "change_type": "renaming (regional variant)",
           "date_original": "1582",
           "year_display": 1582,
+          "span_until_display": null,
+          "span_until_original": null,
+          "status": "proposed",
+          "node_kind": "calendar"
+        },
+        {
+          "id": "8e89450a-33ee-4a7c-8071-4c89ad2798ff",
+          "name": "Julian calendar I (as decreed — quadriennial leap)",
+          "change_type": "calendar state",
+          "date_original": "1 January 45 BCE",
+          "year_display": -45,
+          "span_until_display": -42,
+          "span_until_original": "42 BCE (error begins)",
+          "status": "proposed",
+          "node_kind": "calendar"
+        },
+        {
+          "id": "2b76658d-126b-413a-b9d4-9c6eff8d8f89",
+          "name": "Julian calendar II (as operated — triennial leap error)",
+          "change_type": "calendar state",
+          "date_original": "42 BCE",
+          "year_display": -42,
+          "span_until_display": -8,
+          "span_until_original": "8 BCE (Augustus's order)",
+          "status": "proposed",
+          "node_kind": "calendar"
+        },
+        {
+          "id": "4d6c0691-94b1-41cc-9663-4e9b2e37b139",
+          "name": "Julian calendar III (as corrected — Augustan)",
+          "change_type": "calendar state",
+          "date_original": "8 BCE",
+          "year_display": -8,
+          "span_until_display": 1582,
+          "span_until_original": "1582 (reformed into Gregorian)",
           "status": "proposed",
           "node_kind": "calendar"
         },
@@ -114,6 +161,8 @@
           "change_type": "creation (of reform)",
           "date_original": "24 February 1582 (Julian)",
           "year_display": 1582,
+          "span_until_display": null,
+          "span_until_original": null,
           "status": "proposed",
           "node_kind": "calendar"
         },
@@ -123,6 +172,8 @@
           "change_type": "structural reform",
           "date_original": "1582",
           "year_display": 1582,
+          "span_until_display": null,
+          "span_until_original": null,
           "status": "proposed",
           "node_kind": "calendar"
         },
@@ -132,6 +183,8 @@
           "change_type": "realignment",
           "date_original": "46 BCE",
           "year_display": -46,
+          "span_until_display": null,
+          "span_until_original": null,
           "status": "proposed",
           "node_kind": "calendar"
         },
@@ -141,6 +194,8 @@
           "change_type": "creation",
           "date_original": "1 January 45 BCE",
           "year_display": -45,
+          "span_until_display": null,
+          "span_until_original": null,
           "status": "proposed",
           "node_kind": "calendar"
         },
@@ -150,6 +205,8 @@
           "change_type": "correction",
           "date_original": "8 BCE",
           "year_display": -8,
+          "span_until_display": null,
+          "span_until_original": null,
           "status": "proposed",
           "node_kind": "calendar"
         },
@@ -159,6 +216,8 @@
           "change_type": "operating error",
           "date_original": "42 BCE (start of error)",
           "year_display": -42,
+          "span_until_display": null,
+          "span_until_original": null,
           "status": "proposed",
           "node_kind": "calendar"
         },
@@ -168,6 +227,8 @@
           "change_type": "operating error",
           "date_original": "by 9 BCE",
           "year_display": -9,
+          "span_until_display": null,
+          "span_until_original": null,
           "status": "proposed",
           "node_kind": "calendar"
         },
@@ -177,6 +238,8 @@
           "change_type": "renaming",
           "date_original": "525",
           "year_display": 525,
+          "span_until_display": null,
+          "span_until_original": null,
           "status": "proposed",
           "node_kind": "calendar"
         },
@@ -186,6 +249,8 @@
           "change_type": "era change",
           "date_original": "525",
           "year_display": 525,
+          "span_until_display": null,
+          "span_until_original": null,
           "status": "proposed",
           "node_kind": "calendar"
         },
@@ -195,6 +260,8 @@
           "change_type": "era change",
           "date_original": "525",
           "year_display": 525,
+          "span_until_display": null,
+          "span_until_original": null,
           "status": "proposed",
           "node_kind": "calendar"
         },
@@ -204,6 +271,8 @@
           "change_type": "era change (practice)",
           "date_original": "731",
           "year_display": 731,
+          "span_until_display": null,
+          "span_until_original": null,
           "status": "proposed",
           "node_kind": "calendar"
         }
@@ -310,6 +379,8 @@
           "change_type": "era change (defence)",
           "date_original": "1588",
           "year_display": 1588,
+          "span_until_display": null,
+          "span_until_original": null,
           "status": "proposed",
           "node_kind": "event"
         },
@@ -319,6 +390,8 @@
           "change_type": "era change (explanation)",
           "date_original": "1603",
           "year_display": 1603,
+          "span_until_display": null,
+          "span_until_original": null,
           "status": "proposed",
           "node_kind": "event"
         }
@@ -361,6 +434,8 @@
           "change_type": "renaming",
           "date_original": "1708",
           "year_display": 1708,
+          "span_until_display": null,
+          "span_until_original": null,
           "status": "proposed",
           "node_kind": "calendar"
         },
@@ -370,6 +445,8 @@
           "change_type": "renaming",
           "date_original": "1715",
           "year_display": 1715,
+          "span_until_display": null,
+          "span_until_original": null,
           "status": "proposed",
           "node_kind": "calendar"
         },
@@ -379,6 +456,8 @@
           "change_type": "renaming",
           "date_original": "1770",
           "year_display": 1770,
+          "span_until_display": null,
+          "span_until_original": null,
           "status": "proposed",
           "node_kind": "calendar"
         },
@@ -388,6 +467,8 @@
           "change_type": "renaming",
           "date_original": "1797",
           "year_display": 1797,
+          "span_until_display": null,
+          "span_until_original": null,
           "status": "proposed",
           "node_kind": "calendar"
         },
@@ -397,6 +478,8 @@
           "change_type": "renaming",
           "date_original": "1835",
           "year_display": 1835,
+          "span_until_display": null,
+          "span_until_original": null,
           "status": "proposed",
           "node_kind": "calendar"
         }
@@ -482,6 +565,36 @@
       "type": "era_used_by",
       "from": "New calendar in operation (by edict)",
       "to": "Roman pre-consular/regnal usage (AUC, consulships)",
+      "status": "proposed"
+    },
+    {
+      "type": "derived_from",
+      "from": "Julian calendar II (as operated — triennial leap error)",
+      "to": "Julian calendar I (as decreed — quadriennial leap)",
+      "status": "proposed"
+    },
+    {
+      "type": "derived_from",
+      "from": "Julian calendar III (as corrected — Augustan)",
+      "to": "Julian calendar II (as operated — triennial leap error)",
+      "status": "proposed"
+    },
+    {
+      "type": "era_used_by",
+      "from": "Julian calendar I (as decreed — quadriennial leap)",
+      "to": "Roman pre-consular/regnal usage (AUC, consulships)",
+      "status": "proposed"
+    },
+    {
+      "type": "era_used_by",
+      "from": "Julian calendar II (as operated — triennial leap error)",
+      "to": "Roman pre-consular/regnal usage (AUC, consulships)",
+      "status": "proposed"
+    },
+    {
+      "type": "era_used_by",
+      "from": "Julian calendar III (as corrected — Augustan)",
+      "to": "Dionysian era (Anno Domini)",
       "status": "proposed"
     }
   ]
