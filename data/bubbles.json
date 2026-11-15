@@ -213,7 +213,7 @@
           "id": "3d04ce34-401b-4f3b-be96-cc73eaa1639e",
           "name": "Roman pre-consular/regnal usage (AUC, consulships)",
           "epoch": "year 1 = founding of Rome (AUC 1, 753 BCE by the Varronian count)",
-          "epoch_date": null,
+          "epoch_date": "45 BCE usage start (epoch: AUC year one, Varronian)",
           "renames": [],
           "usages": [],
           "status": "proposed",
