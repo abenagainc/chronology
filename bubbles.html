@@ -62,9 +62,10 @@ const SUB = [
 ];
 
 async function load() {
+  const bust = '?cb=' + Date.now();   // always-fresh data (GitHub Pages caches aggressively)
   const [bubblesData, ceData] = await Promise.all([
-    fetch('data/bubbles.json').then(r => r.json()),
-    fetch('data/ce_lineage.json').then(r => r.json()),
+    fetch('data/bubbles.json' + bust).then(r => r.json()),
+    fetch('data/ce_lineage.json' + bust).then(r => r.json()),
   ]);
 
   const groups = new vis.DataSet();

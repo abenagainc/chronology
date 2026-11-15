@@ -33,7 +33,7 @@
   <span><i class="sw" style="background:#4f7cdf66"></i>renaming (the AD → CE chain)</span>
 </p>
 <script>
-fetch('data/ce_lineage.json').then(r => r.json()).then(data => {
+fetch('data/ce_lineage.json?cb=' + Date.now()).then(r => r.json()).then(data => {
   const yearParse = s => {
     // source-stated dates: take the leading number as the year (display only, not conversion)
     const m = /^(-?\d{4})/.exec(s || '');
