@@ -60,12 +60,12 @@ function renderTable(rows, cols) {
 }
 
 const SECTIONS = [
-  ["bubbles", "Bubbles", ["id", "label", "status", "created_by", "created_at"], "label"],
-  ["nodes", "Nodes", ["id", "bubble_id", "node_type_id", "name_form", "status", "created_at"], "created_at"],
-  ["links", "Links", ["id", "bubble_id", "link_type_id", "from_node_id", "to_node_id", "status"], "created_at"],
-  ["sources", "Sources", ["id", "source_type_id", "label", "status", "date_original", "intake_passed"], "label"],
-  ["passages", "Passages", ["id", "source_id", "locator", "quote"], "created_at"],
-  ["claims", "Claims", ["id", "subject_node_id", "subject_source_id", "predicate_id", "value", "payload", "date_original", "date_day_number", "status", "supersedes_id"], "created_at"],
+  ["bubble", "Bubbles", ["id", "label", "status", "created_by", "created_at"], "label"],
+  ["node", "Nodes", ["id", "bubble_id", "node_type_id", "name_form", "status", "created_at"], "created_at"],
+  ["link", "Links", ["id", "bubble_id", "link_type_id", "from_node_id", "to_node_id", "status"], "created_at"],
+  ["source", "Sources", ["id", "source_type_id", "label", "status", "date_original", "intake_passed"], "label"],
+  ["passage", "Passages", ["id", "source_id", "locator", "quote"], "created_at"],
+  ["claim", "Claims", ["id", "subject_node_id", "subject_source_id", "predicate_id", "value", "payload", "date_original", "date_day_number", "status", "supersedes_id"], "created_at"],
   ["type_registry", "Type registry", ["kind", "key", "label", "payload_json_schema"], "kind"],
 ];
 
