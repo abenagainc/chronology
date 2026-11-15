@@ -5,9 +5,9 @@
     {
       "id": "c77ce6ca-a1b0-4f7b-b93b-931480ef80aa",
       "label": "Bede, Historia ecclesiastica (Northumbria, 731) — nascent bubble",
-      "status": "incomplete",
+      "status": "retired",
       "nascent": true,
-      "description": "Nascent bubble: inferred from an English layer-1 description (owner rule 2026-11-15: originals assumed to exist and be accurately described until rigorous source examination, deferred).",
+      "description": "Nascent bubble: inferred from an English layer-1 description (owner rule 2026-11-15: originals assumed to exist and be accurately described until rigorous source examination, deferred). | restructured 2026-11-15: corpus granularity; its nodes moved to the Julian calendar (Latin tradition) bubble (owner correction).",
       "calendar_changes": [],
       "eras": [],
       "sources": [
@@ -20,9 +20,9 @@
     {
       "id": "8b7d7185-582b-4f66-b4ca-1b81b6450ec4",
       "label": "Caesar's reform edict (Rome, 45 BCE) — nascent bubble",
-      "status": "incomplete",
+      "status": "retired",
       "nascent": true,
-      "description": "Nascent bubble: inferred from an English layer-1 description (owner rule 2026-11-15: originals assumed to exist and be accurately described until rigorous source examination, deferred).",
+      "description": "Nascent bubble: inferred from an English layer-1 description (owner rule 2026-11-15: originals assumed to exist and be accurately described until rigorous source examination, deferred). | restructured 2026-11-15: corpus granularity; its nodes moved to the Julian calendar (Latin tradition) bubble (owner correction).",
       "calendar_changes": [],
       "eras": [],
       "sources": []
@@ -253,9 +253,9 @@
     {
       "id": "ce78c11c-b766-41bf-a932-f03b5a598646",
       "label": "Dionysius Exiguus, Easter table (Rome, 525/532) — nascent bubble",
-      "status": "incomplete",
+      "status": "retired",
       "nascent": true,
-      "description": "Nascent bubble: inferred from an English layer-1 description (owner rule 2026-11-15: originals assumed to exist and be accurately described until rigorous source examination, deferred).",
+      "description": "Nascent bubble: inferred from an English layer-1 description (owner rule 2026-11-15: originals assumed to exist and be accurately described until rigorous source examination, deferred). | restructured 2026-11-15: corpus granularity; its nodes moved to the Julian calendar (Latin tradition) bubble (owner correction).",
       "calendar_changes": [],
       "eras": [],
       "sources": [
@@ -266,11 +266,159 @@
       ]
     },
     {
+      "id": "1f08a0ff-c82b-4a22-b03e-061f41095871",
+      "label": "Gregorian calendar (Latin tradition)",
+      "status": "active",
+      "nascent": false,
+      "description": "Corpus of the Gregorian reform: the papal bull Inter gravissimas (1582), assumed held per owner rule (2026-11-15).",
+      "calendar_changes": [
+        {
+          "id": "b6be0a2d-df88-40ae-9cf3-f2d9e3cde40a",
+          "name": "Bull issued (24 February 1582, Julian)",
+          "change_type": "creation (of reform)",
+          "date_original": "24 February 1582 (Julian)",
+          "year_display": 24,
+          "status": "proposed"
+        },
+        {
+          "id": "1a251371-e426-4f1f-8c12-5d001bcb186b",
+          "name": "Julian calendar reformed; Gregorian calendar named",
+          "change_type": "structural reform",
+          "date_original": "1582",
+          "year_display": 1582,
+          "status": "proposed"
+        }
+      ],
+      "eras": [],
+      "sources": [
+        {
+          "label": "Gregorian calendar (Latin tradition)",
+          "status": "assumed/inferred"
+        },
+        {
+          "label": "Gregorian calendar (Latin tradition)",
+          "status": "assumed/inferred"
+        }
+      ]
+    },
+    {
+      "id": "56066b97-17e9-44d9-b65d-95c9ad92cb1b",
+      "label": "Julian calendar (Latin tradition)",
+      "status": "active",
+      "nascent": false,
+      "description": "Corpus of Latin sources attesting the Julian calendar: Caesar's edict (45 BCE), Macrobius's Saturnalia (~430), Dionysius Exiguus's Easter table (525/532), Bede's Historia ecclesiastica (731). All assumed held per owner rule (2026-11-15): Wikipedia descriptions treated as the sources' content until rigorous examination.",
+      "calendar_changes": [
+        {
+          "id": "8e5bc7a7-72d7-4c06-83f3-4300ab4b0972",
+          "name": "Edict: 46 BCE made 445 days (realignment)",
+          "change_type": "realignment",
+          "date_original": "46 BCE",
+          "year_display": -46,
+          "status": "proposed"
+        },
+        {
+          "id": "9c322daf-d4e2-4c51-bf4d-e9748ac7a3f2",
+          "name": "New calendar in operation (by edict)",
+          "change_type": "creation",
+          "date_original": "1 January 45 BCE",
+          "year_display": -1,
+          "status": "proposed"
+        },
+        {
+          "id": "a6ba96c2-f562-4993-9ada-8594215cb582",
+          "name": "Augustus's order: twelve years without intercalation",
+          "change_type": "correction",
+          "date_original": "8 BCE",
+          "year_display": -8,
+          "status": "proposed"
+        },
+        {
+          "id": "36bbeb21-0da5-4620-b7d7-573419fdb1d5",
+          "name": "Pontifices' error: leap day every three years",
+          "change_type": "operating error",
+          "date_original": "42 BCE (start of error)",
+          "year_display": -42,
+          "status": "proposed"
+        },
+        {
+          "id": "d41fdf24-107c-453b-9c19-84dbb3bbef01",
+          "name": "Twelve intercalations in thirty-six years (nine due)",
+          "change_type": "operating error",
+          "date_original": "by 9 BCE",
+          "year_display": null,
+          "status": "proposed"
+        },
+        {
+          "id": "f8eb3f15-c575-4c78-8915-3a939a951742",
+          "name": "Column labeled \"Anni Domini Nostri Jesu Christi\"",
+          "change_type": "renaming",
+          "date_original": "525",
+          "year_display": 525,
+          "status": "proposed"
+        },
+        {
+          "id": "00524729-f2e0-4cc8-9594-ccaeb65b698a",
+          "name": "Dionysius devises the new era (epoch = incarnation)",
+          "change_type": "era change",
+          "date_original": "525",
+          "year_display": 525,
+          "status": "proposed"
+        },
+        {
+          "id": "8e419188-edb4-46df-b911-7d23be760b2d",
+          "name": "Era of the Martyrs replaced (to end the tyrant's memory)",
+          "change_type": "era change",
+          "date_original": "525",
+          "year_display": 525,
+          "status": "proposed"
+        },
+        {
+          "id": "4ac8d0b5-9503-4596-9f14-44cc368331f9",
+          "name": "Bede uses AD dating in England",
+          "change_type": "era change (practice)",
+          "date_original": "731",
+          "year_display": 731,
+          "status": "proposed"
+        }
+      ],
+      "eras": [],
+      "sources": [
+        {
+          "label": "Julian calendar (Latin tradition)",
+          "status": "assumed/inferred"
+        },
+        {
+          "label": "Julian calendar (Latin tradition)",
+          "status": "assumed/inferred"
+        },
+        {
+          "label": "Julian calendar (Latin tradition)",
+          "status": "assumed/inferred"
+        },
+        {
+          "label": "Julian calendar (Latin tradition)",
+          "status": "assumed/inferred"
+        },
+        {
+          "label": "Julian calendar (Latin tradition)",
+          "status": "assumed/inferred"
+        },
+        {
+          "label": "Julian calendar (Latin tradition)",
+          "status": "assumed/inferred"
+        },
+        {
+          "label": "Julian calendar (Latin tradition)",
+          "status": "assumed/inferred"
+        }
+      ]
+    },
+    {
       "id": "c7e7d111-96fb-42b0-b1bc-1a3fc16d17d4",
       "label": "Macrobius, Saturnalia (Rome, ~430) — nascent bubble",
-      "status": "incomplete",
+      "status": "retired",
       "nascent": true,
-      "description": "Nascent bubble: inferred from an English layer-1 description (owner rule 2026-11-15: originals assumed to exist and be accurately described until rigorous source examination, deferred).",
+      "description": "Nascent bubble: inferred from an English layer-1 description (owner rule 2026-11-15: originals assumed to exist and be accurately described until rigorous source examination, deferred). | restructured 2026-11-15: corpus granularity; its nodes moved to the Julian calendar (Latin tradition) bubble (owner correction).",
       "calendar_changes": [],
       "eras": [],
       "sources": [
@@ -283,9 +431,9 @@
     {
       "id": "895bb7ed-f566-43bf-8cfc-d79b690d1f9e",
       "label": "Papal bull Inter gravissimas (Papal curia, 1582) — nascent bubble",
-      "status": "incomplete",
+      "status": "retired",
       "nascent": true,
-      "description": "Nascent bubble: inferred from an English layer-1 description (owner rule 2026-11-15: originals assumed to exist and be accurately described until rigorous source examination, deferred).",
+      "description": "Nascent bubble: inferred from an English layer-1 description (owner rule 2026-11-15: originals assumed to exist and be accurately described until rigorous source examination, deferred). | restructured 2026-11-15: corpus granularity; its nodes moved to the Gregorian calendar (Latin tradition) bubble (owner correction).",
       "calendar_changes": [],
       "eras": [],
       "sources": [
