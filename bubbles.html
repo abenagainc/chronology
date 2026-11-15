@@ -2,273 +2,201 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Chronology X — Bubbles Timeline</title>
-<link rel="stylesheet" href="vendor/vis-timeline-graph2d.min.css"/>
-<script src="vendor/vis-timeline-graph2d.min.js"></script>
+<title>Chronology X — Bubbles Timeline (vertical)</title>
 <style>
   :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
   body { font-family: -apple-system, "Segoe UI", sans-serif; margin: 0; padding: 1rem 1.2rem;
          background: #fafafa; color: #222; }
   h1 { font-size: 1.15rem; margin: 0 0 .25rem; }
-  .note { color: #555; font-size: .78rem; max-width: 68rem; margin: .15rem 0 .5rem; }
-  /* nav bar */
-  .nav { display: flex; gap: .4rem; align-items: center; margin: .4rem 0 .7rem; flex-wrap: wrap; }
-  .nav button { font: inherit; font-size: .8rem; padding: .28rem .75rem; border: 1px solid #c8c8c8;
+  .note { color: #555; font-size: .78rem; max-width: 70rem; margin: .15rem 0 .5rem; }
+  .nav { display: flex; gap: .4rem; align-items: center; margin: .4rem 0 .6rem; flex-wrap: wrap; }
+  .nav button { font: inherit; font-size: .8rem; padding: .3rem .8rem; border: 1px solid #c8c8c8;
     border-radius: 6px; background: #fff; color: #333; cursor: pointer; }
   .nav button:hover { background: #f0f0f0; }
-  .nav button:active { background: #e2e2e2; }
-  .nav .sep { width: 1px; height: 1.4rem; background: #d0d0d0; margin: 0 .25rem; }
-  .nav .range { font-size: .75rem; color: #666; min-width: 12rem; }
+  .nav .sep { width: 1px; height: 1.4rem; background: #d0d0d0; margin: 0 .3rem; }
+  .nav .range { font-size: .75rem; color: #666; }
   .legend { font-size: .72rem; margin: .2rem 0 .6rem; color: #555; }
-  .legend span { margin-right: 1rem; }
+  .legend span { margin-right: 1.1rem; }
   .sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: .22rem; vertical-align: middle; }
-  #timeline { width: 100%; height: 76vh; border: 1px solid #ccc2; border-radius: 6px; }
-  /* items */
-  .vis-item.b-cal { background: #4f7cdf2e; border-color: #4f7cdf; }
-  .vis-item.b-cal.reform { background: #c25f0e2e; border-color: #c25f0e; }
-  .vis-item.b-era { background: #3f9d6b2e; border-color: #3f9d6b; }
-  .vis-item.b-rename { background: #7c3aed2e; border-color: #7c3aed; }
-  .vis-item.b-state { background: #2563eb22; border-color: #2563eb; font-size: .72rem; }
-  /* labels */
-  .vis-label { font-size: .78rem; }
-  .nascent-flag { background: #92400e1a; border: 1px solid #b45309; color: #92400e;
-    display: inline-block; font-size: .64rem; padding: .04rem .4rem; border-radius: 99px; margin-left: .35rem; }
-  .descent-flag { background: #1d4ed81a; border: 1px solid #3b82f6; color: #1d4ed8;
-    display: inline-block; font-size: .64rem; padding: .04rem .4rem; border-radius: 99px; margin-left: .35rem;
-    cursor: help; }
+
+  /* ---- vertical timeline shell: outer scrolls BOTH directions ---- */
+  #vt-scroll { overflow: auto; height: 74vh; border: 1px solid #ccc2; border-radius: 6px;
+    background: #fff; position: relative; }
+  #vt-inner { position: relative; display: flex; min-width: max-content; }
+  .col { flex: 0 0 300px; position: relative; border-right: 1px solid #e4e4e4; }
+  .col.axis-col { flex: 0 0 64px; }
+  .col-head { position: sticky; top: 0; z-index: 5; background: #f0f0f0ee; padding: .45rem .5rem;
+    font-size: .78rem; font-weight: 600; border-bottom: 2px solid #4f7cdf55; min-height: 3.6rem;
+    display: flex; align-items: flex-start; gap: .3rem; }
+  .col-head small { font-weight: 400; font-size: .68rem; color: #666; display: block; }
+  .flag { display: inline-block; font-size: .62rem; font-weight: 400; border-radius: 99px;
+    padding: .02rem .38rem; margin-left: .2rem; }
+  .flag.assumed { background: #92400e1a; border: 1px solid #b45309; color: #92400e; }
+  .flag.descent { background: #1d4ed81a; border: 1px solid #3b82f6; color: #1d4ed8; }
+
+  .col-body { position: relative; }
+  .yearlab { position: absolute; right: .35rem; transform: translateY(-50%);
+    font-size: .68rem; color: #999; }
+
+  .it { position: absolute; left: 6px; right: 6px; border: 1px solid; border-radius: 5px;
+    padding: .18rem .4rem; font-size: .7rem; line-height: 1.15; background: #fff;
+    overflow: hidden; cursor: default; }
+  .it small { color: #667; font-size: .62rem; }
+  .it.cal   { background: #4f7cdf1e; border-color: #4f7cdfaa; }
+  .it.reform{ background: #c25f0e1e; border-color: #c25f0eaa; }
+  .it.state { background: #2563eb18; border-color: #2563eb99; }
+  .it.era   { background: #3f9d6b1e; border-color: #3f9d6baa; }
+  .it.rename{ background: #7c3aed1e; border-color: #7c3aedaa; }
   #err { color: #dc2626; font-size: .78rem; white-space: pre-wrap; }
 </style>
 </head>
 <body>
-<h1>Chronology X — Bubbles across time</h1>
-<p class="note">VERTICAL timeline — time flows <b>top → bottom</b>; each <b>column</b> is a corpus bubble (its own language / script / numerals / calendar), ordered by the descent chain (Julian I → Diocletian → Julian II/Dionysian → Gregorian → Common Era).
-Nascent sources are ASSUMED held per English descriptions (owner rule). Years parsed from source-stated strings for display only; conversion is the Phase 2 alignment layer.</p>
-<div class="nav" id="nav">
-  <button id="btn-zoom-in" title="zoom in">＋ zoom in</button>
-  <button id="btn-zoom-out" title="zoom out">－ zoom out</button>
+<h1>Chronology X — Bubbles across time (vertical)</h1>
+<p class="note">Time flows <b>top → bottom</b>. Each <b>column</b> is a corpus bubble (own language / script / numerals / calendar), descent-ordered:
+<b>Julian I</b> → <b>Diocletian</b> → <b>Julian II (Dionysian)</b> → <b>Gregorian</b> → <b>Common Era</b>.
+<span style="color:#92400e">assumed</span> = sources assumed held per English descriptions (owner rule). Years parsed from source-stated strings for display only; conversion is the Phase 2 alignment layer.</p>
+
+<div class="nav">
+  <button id="zin">＋ zoom in</button><button id="zout">－ zoom out</button>
   <span class="sep"></span>
-  <button id="btn-up" title="pan up (earlier)">↑ pan up</button>
-  <button id="btn-down" title="pan down (later)">↓ pan down</button>
+  <button id="up">↑ earlier</button><button id="down">↓ later</button>
   <span class="sep"></span>
-  <button id="btn-left" title="pan left">← pan left</button>
-  <button id="btn-right" title="pan right">→ pan right</button>
+  <button id="left">← cols</button><button id="right">→ cols</button>
   <span class="sep"></span>
-  <button id="btn-fit" title="fit all">⤢ fit all</button>
-  <button id="btn-start" title="jump to start">⇧ start</button>
-  <button id="btn-end" title="jump to end">⇥ end</button>
-  <span class="sep"></span>
+  <button id="fit">⤢ fit all</button>
   <span class="range" id="range">—</span>
 </div>
 <div class="legend">
-  <span><i class="sw" style="background:#4f7df88"></i>calendar change</span>
-  <span><i class="sw" style="background:#c25f0e88"></i>structural reform</span>
-  <span><i class="sw" style="background:#2563eb88"></i>calendar state (as operated)</span>
+  <span><i class="sw" style="background:#4f7df88"></i>change</span>
+  <span><i class="sw" style="background:#c25f0e88"></i>reform</span>
+  <span><i class="sw" style="background:#2563eb88"></i>calendar state</span>
   <span><i class="sw" style="background:#3f9d6b88"></i>era band</span>
-  <span><i class="sw" style="background:#7c3aed88"></i>era rename</span>
+  <span><i class="sw" style="background:#7c3aed88"></i>rename</span>
 </div>
 <div id="err"></div>
-<div id="timeline"></div>
+<div id="vt-scroll"><div id="vt-inner"></div></div>
 
 <script>
-function ymd(y) {
-  const d = new Date(2000, 0, 15);
-  d.setFullYear(y, 0, 1);
-  return d;
-}
+let DATA = null, PPY = 1.2, MINY = -60, MAXY = 2100, BODYH = 0;
 
-const SUB = [
-  { key: 'struct', label: 'structure' },
-  { key: 'era',    label: 'eras' },
-  { key: 'rename', label: 'renames' },
-];
+const fmtY = (y) => y < 1 ? `${1 - y} BCE` : `${y} CE`;
 
-let TIMELINE = null;
+function esc(s){ return String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 
-async function load() {
-  const bust = '?cb=' + Date.now();   // always-fresh data (Pages caches aggressively)
-  const [bubblesData, ceData] = await Promise.all([
-    fetch('data/bubbles.json' + bust).then(r => r.json()),
-    fetch('data/ce_lineage.json' + bust).then(r => r.json()),
-  ]);
+function render() {
+  const inner = document.getElementById('vt-inner');
+  inner.innerHTML = '';
+  BODYH = (MAXY - MINY) * PPY;
+  const y2t = (y) => (y - MINY) * PPY;
 
-  const groups = new vis.DataSet();
-  const items = new vis.DataSet();
+  // year-axis column
+  const ax = document.createElement('div');
+  ax.className = 'col axis-col';
+  const axh = document.createElement('div'); axh.className = 'col-head'; axh.textContent = 'year';
+  ax.appendChild(axh);
+  const axb = document.createElement('div'); axb.className = 'col-body';
+  axb.style.height = BODYH + 'px';
+  const step = PPY < 1 ? 500 : PPY < 3 ? 200 : PPY < 8 ? 100 : PPY < 20 ? 50 : 25;
+  for (let y = Math.ceil(MINY / step) * step; y <= MAXY; y += step) {
+    const l = document.createElement('div');
+    l.className = 'yearlab'; l.textContent = fmtY(y);
+    l.style.top = y2t(y) + 'px';
+    axb.appendChild(l);
+  }
+  ax.appendChild(axb);
+  inner.appendChild(ax);
 
-  // export order IS the descent chain — trust it
-  const sorted = [...bubblesData.bubbles].filter(b => b.status !== 'retired');
+  for (const b of DATA.bubbles.filter(x => x.status !== 'retired')) {
+    const col = document.createElement('div');
+    col.className = 'col';
+    const head = document.createElement('div'); head.className = 'col-head';
+    head.innerHTML = `<span>${esc(b.label)}</span>` +
+      (b.nascent ? '<span class="flag assumed">assumed</span>' : '') +
+      (b.descent_type ? `<span class="flag descent" title="${esc(b.descent_type)} → ${esc(b.descent_to||'')}">⤵ ${esc(b.descent_type.replace('_',' '))}</span>` : '');
+    col.appendChild(head);
+    const body = document.createElement('div'); body.className = 'col-body';
+    body.style.height = BODYH + 'px';
 
-  let gid = 0;
-  for (const b of sorted) {
-    const id = ++gid;
-    const gkey = 'b' + id;
-    const shortName = b.label;
+    const addItem = (it) => {
+      const el = document.createElement('div');
+      el.className = 'it ' + it.cls;
+      el.style.top = y2t(it.y1) + 'px';
+      if (it.y2 !== undefined) el.style.height = Math.max(((it.y2 - it.y1) * PPY), 14) + 'px';
+      el.innerHTML = it.html;
+      el.title = it.title;
+      body.appendChild(el);
+    };
 
-    const renameItems = b.label.includes('English') ? ceData.changes.filter(
-      c => (c.change_type || '').includes('renam')) : [];
-    const hasStruct = b.calendar_changes.length > 0;
-    const hasEra = b.eras.length > 0;
-    const hasRename = renameItems.length > 0;
-
-    const subIds = [];
-    const childDefs = [];
-    if (hasStruct) { childDefs.push({ key: SUB[0].key, label: SUB[0].label }); }
-    if (hasEra)    { childDefs.push({ key: SUB[1].key, label: SUB[1].label }); }
-    if (hasRename) { childDefs.push({ key: SUB[2].key, label: SUB[2].label }); }
-
-    for (const cd of childDefs) {
-      const cid = ++gid;
-      subIds.push(cid);
-      groups.add({ id: cid, content: cd.label, level: 1, treeLevel: 1 });
-    }
-
-    groups.add({
-      id: id,
-      content: shortName + (b.nascent ? ' <span class="nascent-flag">assumed</span>' : '') +
-        (b.descent_type
-          ? ` <span class="descent-flag" title="descent: ${b.descent_type} → ${(b.descent_to||'').replace(' — nascent bubble','')}">⤵</span>`
-          : ''),
-      value: id,
-      nestedGroups: subIds.length ? subIds : undefined,
-      treeLevel: 0,
-    });
-
-    const sub = {};
-    let k = 0;
-    if (hasStruct) sub.struct = subIds[k++];
-    if (hasEra)    sub.era = subIds[k++];
-    if (hasRename) sub.rename = subIds[k++];
-
-    // structure: calendar STATES as ranges, others as points
     for (const c of b.calendar_changes) {
+      if (c.year_display === null || c.year_display === undefined) continue;
       const y = c.year_display;
-      if (y === null || y === undefined) continue;
-      const isState = (c.change_type === 'calendar state');
-      const reform = (c.change_type || '').includes('reform');
-      if (isState) {
-        items.add({
-          group: sub.struct, id: gkey + '-c-' + c.id,
-          content: `${c.name}<br><small>${c.span_until_original || ''}</small>`,
-          start: ymd(y),
-          end: ymd(c.span_until_display !== null && c.span_until_display !== undefined ? c.span_until_display : y + 1),
-          type: 'range', className: 'b-state',
-          title: `${c.name}\ncalendar state: ${c.date_original} → ${c.span_until_original}\nstatus: ${c.status}`,
-        });
+      const cls = (c.change_type === 'calendar state') ? 'state'
+        : (c.change_type || '').includes('reform') ? 'reform'
+        : 'cal';
+      if (cls === 'state' && c.span_until_display !== null && c.span_until_display !== undefined) {
+        addItem({ y1: y, y2: c.span_until_display, cls,
+          html: `${esc(c.name)}<br><small>${esc(c.span_until_original || '')}</small>`,
+          title: `${c.name}\nstate: ${c.date_original} → ${c.span_until_original}` });
       } else {
-        items.add({
-          group: sub.struct, id: gkey + '-c-' + c.id,
-          content: `${c.name}<br><small>${c.date_original} · ${c.change_type}</small>`,
-          start: ymd(y),
-          className: 'b-cal' + (reform ? ' reform' : ''),
-          title: `${c.name}\nchange type: ${c.change_type}\ndate as stated: ${c.date_original}\nstatus: ${c.status}`,
-        });
+        addItem({ y1: y, cls,
+          html: `${esc(c.name)}<br><small>${esc(c.date_original)} · ${esc(c.change_type)}</small>`,
+          title: `${c.name}\n${c.change_type}\ndate as stated: ${c.date_original}` });
       }
     }
-
-    // era bands
     for (const e of b.eras) {
-      const yStart = (e.epoch_year !== null && e.epoch_year !== undefined)
-        ? e.epoch_year
+      const ys = (e.epoch_year !== null && e.epoch_year !== undefined) ? e.epoch_year
         : parseInt(String(e.epoch_date || '').replace(/[^0-9-]/g, ''), 10);
-      if (isNaN(yStart)) continue;
-      items.add({
-        group: sub.era, id: gkey + '-e-' + e.id,
-        content: `${e.name}<br><small>epoch: ${e.epoch || ''}</small>`,
-        start: ymd(yStart), end: ymd(2100),
-        type: 'range', className: 'b-era',
-        title: `${e.name}\nepoch: ${e.epoch}\nepoch date as stated: ${e.epoch_date}\nstatus: ${e.status}`,
-      });
+      if (isNaN(ys)) continue;
+      addItem({ y1: ys, y2: 2100, cls: 'era',
+        html: `${esc(e.name)}<br><small>epoch: ${esc(e.epoch || '')}</small>`,
+        title: `${e.name}\nepoch: ${e.epoch}\nas stated: ${e.epoch_date}` });
     }
-
-    // rename items (English bubble)
-    for (const ch of renameItems) {
-      const y = parseInt(String(ch.date_original || '').replace(/[^0-9-]/g, ''), 10);
-      if (isNaN(y)) continue;
-      items.add({
-        group: sub.rename, id: gkey + '-r-' + ch.id,
-        content: `${ch.name}<br><small>${ch.date_original} · rename</small>`,
-        start: ymd(y),
-        className: 'b-rename',
-        title: `${ch.name}\nrename of era: Dionysian era (Anno Domini)\ndate as stated: ${ch.date_original}\nstatus: ${ch.status}`,
-      });
-    }
+    col.appendChild(body);
+    inner.appendChild(col);
   }
+  updateRange();
+}
 
-  const options = {
-    orientation: { axis: 'left', item: 'top' },   // VERTICAL: time flows top→bottom
-    verticalScroll: true,
-    stack: true,
-    groupOrder: 'value',
-    groupHeightMode: 'auto',
-    showCurrentTime: false,
-    zoomMin: 1000 * 60 * 60 * 24 * 30,           // ~1 month
-    zoomMax: 1000 * 60 * 60 * 24 * 365 * 3000,   // 3000 years
-    start: ymd(-60), end: ymd(2100),
-    tooltip: { followMouse: true },
-    editable: false,
-  };
-  TIMELINE = new vis.Timeline(document.getElementById('timeline'), items, groups, options);
-  bindNav();
+function updateRange() {
+  const sc = document.getElementById('vt-scroll');
+  const y1 = MINY + sc.scrollTop / PPY, y2 = MINY + (sc.scrollTop + sc.clientHeight) / PPY;
+  document.getElementById('range').textContent =
+    `viewing ${fmtY(Math.round(y1))} → ${fmtY(Math.round(y2))} · ${(PPY).toFixed(2)} px/year`;
 }
 
 function bindNav() {
-  const $ = (id) => document.getElementById(id);
-  const pct = 0.2;
-
-  $('btn-zoom-in').onclick  = () => TIMELINE.zoomIn(pct);
-  $('btn-zoom-out').onclick = () => TIMELINE.zoomOut(pct);
-
-  $('btn-up').onclick    = () => moveWindow(-pct);
-  $('btn-down').onclick  = () => moveWindow(pct);
-  $('btn-left').onclick  = () => moveWindowHorizontal(-pct);
-  $('btn-right').onclick = () => moveWindowHorizontal(pct);
-
-  $('btn-fit').onclick   = () => TIMELINE.fit({ animation: { duration: 300, easingFunction: 'easeInOutQuad' } });
-  $('btn-start').onclick = () => TIMELINE.moveTo(ymd(-60), { animation: { duration: 300, easingFunction: 'easeInOutQuad' } });
-  $('btn-end').onclick   = () => TIMELINE.moveTo(ymd(2100), { animation: { duration: 300, easingFunction: 'easeInOutQuad' } });
-
-  // range readout + keyboard support
-  const fmt = (d) => {
-    const y = d.getFullYear();
-    return y < 1 ? `${1 - y} BCE` : `${y} CE`;
-  };
-  const update = () => {
-    if (!TIMELINE) return;
-    const r = TIMELINE.getWindow();
-    $('range').textContent = `viewing: ${fmt(r.start)} → ${fmt(r.end)}`;
-  };
-  TIMELINE.on('rangechange', update);
-  update();
-
+  const $ = id => document.getElementById(id);
+  const sc = $('vt-scroll');
+  $('zin').onclick  = () => { PPY = Math.min(PPY * 1.5, 60);  render(); };
+  $('zout').onclick = () => { PPY = Math.max(PPY / 1.5, .3); render(); };
+  $('up').onclick    = () => sc.scrollBy({ top: -sc.clientHeight * .8, behavior: 'smooth' });
+  $('down').onclick  = () => sc.scrollBy({ top:  sc.clientHeight * .8, behavior: 'smooth' });
+  $('left').onclick  = () => sc.scrollBy({ left: -300, behavior: 'smooth' });
+  $('right').onclick = () => sc.scrollBy({ left:  300, behavior: 'smooth' });
+  $('fit').onclick   = () => { PPY = Math.max((sc.clientHeight - 40) / (MAXY - MINY), .3); render(); };
+  sc.addEventListener('scroll', updateRange);
   window.addEventListener('keydown', (e) => {
-    if (e.target.tagName === 'INPUT') return;
     switch (e.key) {
-      case '+': case '=': TIMELINE.zoomIn(pct); break;
-      case '-': case '_': TIMELINE.zoomOut(pct); break;
-      case 'ArrowUp': e.preventDefault(); moveWindow(-pct); break;
-      case 'ArrowDown': e.preventDefault(); moveWindow(pct); break;
-      case 'ArrowLeft': e.preventDefault(); moveWindowHorizontal(-pct); break;
-      case 'ArrowRight': e.preventDefault(); moveWindowHorizontal(pct); break;
-      case 'f': case 'F': TIMELINE.fit({ animation: { duration: 300, easingFunction: 'easeInOutQuad' } }); break;
+      case '+': case '=': PPY = Math.min(PPY * 1.5, 60); render(); break;
+      case '-': case '_': PPY = Math.max(PPY / 1.5, .3); render(); break;
+      case 'ArrowUp':   e.preventDefault(); sc.scrollBy({ top: -120 }); break;
+      case 'ArrowDown': e.preventDefault(); sc.scrollBy({ top: 120 }); break;
+      case 'ArrowLeft': e.preventDefault(); sc.scrollBy({ left: -120 }); break;
+      case 'ArrowRight':e.preventDefault(); sc.scrollBy({ left: 120 }); break;
+      case 'f': case 'F': $('fit').click(); break;
     }
   });
 }
 
-// move the visible window along the TIME axis (vertical: up = earlier)
-function moveWindow(fraction) {
-  const r = TIMELINE.getWindow();
-  const span = r.end - r.start;
-  TIMELINE.setWindow(r.start + span * fraction, r.end + span * fraction,
-    { animation: { duration: 200, easingFunction: 'easeInOutQuad' } });
+async function load() {
+  const bust = '?cb=' + Date.now();
+  const b = await fetch('data/bubbles.json' + bust).then(r => r.json());
+  DATA = b;
+  render();
+  bindNav();
 }
-// pan horizontally (across columns) — nudge the panel scroll
-function moveWindowHorizontal(fraction) {
-  const tl = document.querySelector('.vis-timeline');
-  if (tl) tl.scrollLeft += tl.clientWidth * fraction;
-}
-
-load().catch(e => {
-  document.getElementById('err').textContent = 'load error: ' + e.message;
-});
+load().catch(e => { document.getElementById('err').textContent = 'load error: ' + e.message; });
 </script>
 </body>
 </html>
