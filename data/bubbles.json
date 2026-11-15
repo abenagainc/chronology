@@ -233,17 +233,6 @@
       "description": "Corpus of Latin sources for the SECOND Julian period (Latin / Latin alphabet / Roman numerals / Julian as corrected): Dionysius Exiguus's Easter table (525/532), Bede's Historia ecclesiastica (731), the bull Inter gravissimas (1582, Julian-dated). Era usage: Dionysian/AD from 525. Assumed held (owner rule 2026-11-15).",
       "calendar_changes": [
         {
-          "id": "1ba0677c-b1f7-498b-b716-c7a9f277349a",
-          "name": "\"New Style\" name for reformed calendar (orthodox christendom)",
-          "change_type": "renaming (regional variant)",
-          "date_original": "1582",
-          "year_display": 1582,
-          "span_until_display": null,
-          "span_until_original": null,
-          "status": "proposed",
-          "node_kind": "calendar"
-        },
-        {
           "id": "00524729-f2e0-4cc8-9594-ccaeb65b698a",
           "name": "Dionysius devises the new era (epoch = incarnation)",
           "change_type": "era change",
@@ -292,17 +281,6 @@
           "name": "Bull issued (24 February 1582, Julian)",
           "change_type": "creation (of reform)",
           "date_original": "24 February 1582 (Julian)",
-          "year_display": 1582,
-          "span_until_display": null,
-          "span_until_original": null,
-          "status": "proposed",
-          "node_kind": "calendar"
-        },
-        {
-          "id": "1a251371-e426-4f1f-8c12-5d001bcb186b",
-          "name": "Julian calendar reformed; Gregorian calendar named",
-          "change_type": "structural reform",
-          "date_original": "1582",
           "year_display": 1582,
           "span_until_display": null,
           "span_until_original": null,
@@ -381,6 +359,17 @@
       "description": "Corpus of Latin sources under the GREGORIAN calendar (four-tuple: Latin / Latin alphabet / Roman numerals / Gregorian), from 15 Oct 1582 onward. Awaiting its first assumed-held source (natural candidate: Clavius, Romani calendarii a Gregorio XIII restituti explicatio, 1603). Its birth is attested from OUTSIDE, by the Julian-Latin bull of 1582.",
       "calendar_changes": [
         {
+          "id": "1ba0677c-b1f7-498b-b716-c7a9f277349a",
+          "name": "\"New Style\" name for reformed calendar (orthodox christendom)",
+          "change_type": "renaming (regional variant)",
+          "date_original": "1582",
+          "year_display": 1582,
+          "span_until_display": null,
+          "span_until_original": null,
+          "status": "proposed",
+          "node_kind": "calendar"
+        },
+        {
           "id": "8c80eb02-7602-4a88-b398-860215d54e78",
           "name": "Clavius publishes Novi calendarii romani apologia (defence of the new calendar)",
           "change_type": "era change (defence)",
@@ -401,6 +390,17 @@
           "span_until_original": null,
           "status": "proposed",
           "node_kind": "event"
+        },
+        {
+          "id": "1a251371-e426-4f1f-8c12-5d001bcb186b",
+          "name": "Julian calendar reformed; Gregorian calendar named",
+          "change_type": "structural reform",
+          "date_original": "1582",
+          "year_display": 1582,
+          "span_until_display": null,
+          "span_until_original": null,
+          "status": "proposed",
+          "node_kind": "calendar"
         }
       ],
       "eras": [
@@ -520,15 +520,21 @@
   ],
   "links": [
     {
+      "type": "era_used_by",
+      "from": "Gregorian calendar",
+      "to": "Dionysian era (Anno Domini), carried over unchanged (Gregorian usage)",
+      "status": "proposed"
+    },
+    {
       "type": "derived_from",
-      "from": "Quadriennial leap years resumed as Caesar intended",
+      "from": "\"New Style\" name for reformed calendar (orthodox christendom)",
       "to": "Julian calendar reformed; Gregorian calendar named",
       "status": "proposed"
     },
     {
-      "type": "era_used_by",
-      "from": "Gregorian calendar",
-      "to": "Dionysian era (Anno Domini), carried over unchanged (Gregorian usage)",
+      "type": "derived_from",
+      "from": "Quadriennial leap years resumed as Caesar intended",
+      "to": "Julian calendar reformed; Gregorian calendar named",
       "status": "proposed"
     },
     {
@@ -595,12 +601,6 @@
       "type": "derived_from",
       "from": "Augustus's order: twelve years without intercalation",
       "to": "Quadriennial leap years resumed as Caesar intended",
-      "status": "proposed"
-    },
-    {
-      "type": "derived_from",
-      "from": "\"New Style\" name for reformed calendar (orthodox christendom)",
-      "to": "Julian calendar reformed; Gregorian calendar named",
       "status": "proposed"
     },
     {
