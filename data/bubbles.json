@@ -270,7 +270,17 @@
       "label": "Gregorian calendar (Latin tradition)",
       "status": "active",
       "nascent": false,
-      "description": "Corpus of the Gregorian reform: the papal bull Inter gravissimas (1582), assumed held per owner rule (2026-11-15).",
+      "description": "Corpus of Latin sources under the GREGORIAN calendar (four-tuple: Latin / Latin alphabet / Roman numerals / Gregorian), from 15 Oct 1582 onward. Awaiting its first assumed-held source (natural candidate: Clavius, Romani calendarii a Gregorio XIII restituti explicatio, 1603). Its birth is attested from OUTSIDE, by the Julian-Latin bull of 1582.",
+      "calendar_changes": [],
+      "eras": [],
+      "sources": []
+    },
+    {
+      "id": "56066b97-17e9-44d9-b65d-95c9ad92cb1b",
+      "label": "Julian calendar (Latin tradition)",
+      "status": "active",
+      "nascent": false,
+      "description": "Corpus of Latin sources under the JULIAN calendar (four-tuple: Latin / Latin alphabet / Roman numerals / Julian): Caesar's edict (45 BCE), Macrobius's Saturnalia (~430), Dionysius Exiguus's Easter table (525/532), Bede's Historia ecclesiastica (731), and the bull Inter gravissimas (24 Feb 1582, Julian — the corpus's last document, describing the Gregorian creation). All sources assumed held per owner rule (2026-11-15).",
       "calendar_changes": [
         {
           "id": "b6be0a2d-df88-40ae-9cf3-f2d9e3cde40a",
@@ -287,27 +297,7 @@
           "date_original": "1582",
           "year_display": 1582,
           "status": "proposed"
-        }
-      ],
-      "eras": [],
-      "sources": [
-        {
-          "label": "Gregorian calendar (Latin tradition)",
-          "status": "assumed/inferred"
         },
-        {
-          "label": "Gregorian calendar (Latin tradition)",
-          "status": "assumed/inferred"
-        }
-      ]
-    },
-    {
-      "id": "56066b97-17e9-44d9-b65d-95c9ad92cb1b",
-      "label": "Julian calendar (Latin tradition)",
-      "status": "active",
-      "nascent": false,
-      "description": "Corpus of Latin sources attesting the Julian calendar: Caesar's edict (45 BCE), Macrobius's Saturnalia (~430), Dionysius Exiguus's Easter table (525/532), Bede's Historia ecclesiastica (731). All assumed held per owner rule (2026-11-15): Wikipedia descriptions treated as the sources' content until rigorous examination.",
-      "calendar_changes": [
         {
           "id": "8e5bc7a7-72d7-4c06-83f3-4300ab4b0972",
           "name": "Edict: 46 BCE made 445 days (realignment)",
