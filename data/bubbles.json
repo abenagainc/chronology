@@ -251,6 +251,31 @@
       "sources": []
     },
     {
+      "id": "2c7876c8-9cda-42de-adcd-9ce84ab42354",
+      "label": "Diocletian era (Alexandrian tradition)",
+      "status": "active",
+      "nascent": false,
+      "description": "Corpus of the Era of the Martyrs (anno martyrum / anno Diocletiani): four-tuple = Coptic/Greek / Coptic & Greek scripts / Coptic numerals / Alexandrian calendar, epoch 1 Thoth = 29 August 284 (Diocletian's accession year by Alexandrian reckoning). Used by the Church of Alexandria from the 4th century and by the Coptic Church to the present. Assumed held per owner rule (2026-11-15): Wikipedia description treated as source content.",
+      "calendar_changes": [],
+      "eras": [
+        {
+          "id": "6170a1ab-0e09-4833-bb61-e4cb44b685a4",
+          "name": "Era of the Martyrs (anno martyrum)",
+          "epoch": "year 1 = 1 Thoth of Diocletian's accession year (29 August 284) by Alexandrian reckoning",
+          "epoch_date": "29 August 284",
+          "renames": [],
+          "usages": [],
+          "status": "proposed"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Diocletian era (Alexandrian tradition)",
+          "status": "assumed/inferred"
+        }
+      ]
+    },
+    {
       "id": "ce78c11c-b766-41bf-a932-f03b5a598646",
       "label": "Dionysius Exiguus, Easter table (Rome, 525/532) — nascent bubble",
       "status": "retired",
@@ -273,7 +298,16 @@
       "description": "Corpus of Latin sources under the GREGORIAN calendar (four-tuple: Latin / Latin alphabet / Roman numerals / Gregorian), from 15 Oct 1582 onward. Awaiting its first assumed-held source (natural candidate: Clavius, Romani calendarii a Gregorio XIII restituti explicatio, 1603). Its birth is attested from OUTSIDE, by the Julian-Latin bull of 1582.",
       "calendar_changes": [],
       "eras": [],
-      "sources": []
+      "sources": [
+        {
+          "label": "Gregorian calendar (Latin tradition)",
+          "status": "assumed/inferred"
+        },
+        {
+          "label": "Gregorian calendar (Latin tradition)",
+          "status": "assumed/inferred"
+        }
+      ]
     },
     {
       "id": "56066b97-17e9-44d9-b65d-95c9ad92cb1b",

@@ -140,6 +140,20 @@
       "change_type": "structural reform",
       "date_original": "1582",
       "status": "accepted"
+    },
+    {
+      "id": "212cd801-f8ce-430c-8ead-229bb8cf171f",
+      "name": "Era of the Martyrs (Diocletian)",
+      "change_type": "era usage",
+      "date_original": null,
+      "status": "accepted"
+    },
+    {
+      "id": "533e10c5-7e66-4b5e-80ad-b4d98206fac7",
+      "name": "Dionysian era (Anno Domini)",
+      "change_type": "era usage",
+      "date_original": null,
+      "status": "accepted"
     }
   ],
   "lineage": [
@@ -177,6 +191,26 @@
       "from": "a542e48d-bd72-49ff-9f2d-54b43978f720",
       "to": "3726cd1e-5c14-4c47-a22f-ca9458bb8bb2",
       "type": "derived_from"
+    },
+    {
+      "from": "75ca8bc3-88f9-48a2-b5dc-678439b1c624",
+      "to": "212cd801-f8ce-430c-8ead-229bb8cf171f",
+      "type": "era_used_by"
+    },
+    {
+      "from": "75ca8bc3-88f9-48a2-b5dc-678439b1c624",
+      "to": "533e10c5-7e66-4b5e-80ad-b4d98206fac7",
+      "type": "era_used_by"
+    },
+    {
+      "from": "05b38f8a-8784-4375-96bb-7cbdba6173a4",
+      "to": "533e10c5-7e66-4b5e-80ad-b4d98206fac7",
+      "type": "era_used_by"
+    },
+    {
+      "from": "533e10c5-7e66-4b5e-80ad-b4d98206fac7",
+      "to": "212cd801-f8ce-430c-8ead-229bb8cf171f",
+      "type": "replaced_era"
     }
   ]
 }
