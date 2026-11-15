@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Chronology Tool X — CE Calendar Lineage (from database)</title>
+<link rel="stylesheet" href="vendor/vis-timeline-graph2d.min.css"/>
+<script src="vendor/vis-timeline-graph2d.min.js"></script>
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, "Segoe UI", sans-serif; margin: 0; padding: 1.5rem; }
+  h1 { font-size: 1.2rem; margin: 0 0 .3rem; }
+  .note { color: #b26a00; font-size: .85rem; max-width: 60rem; margin: .2rem 0 1rem; }
+  .proposed-banner { background: #b4530922; border: 1px solid #b45309; color: #b45309;
+    padding: .45rem .8rem; border-radius: 6px; font-size: .82rem; max-width: 60rem; margin-bottom: 1rem; }
+  #timeline { width: 100%; height: 65vh; border: 1px solid #ccc2; border-radius: 6px; }
+  .legend { font-size: .78rem; margin: .6rem 0 0; color: #555; }
+  .legend span { margin-right: 1.2rem; }
+  .sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: .3rem; vertical-align: middle; }
+  .vis-item.era-change { background-color: #3f9d6b33; border-color: #3f9d6b; }
+  .vis-item.reform { background-color: #c25f0e33; border-color: #c25f0e; }
+  .vis-item.renaming { background-color: #4f7cdf33; border-color: #4f7cdf; }
+  .vis-item.reformgap { background-color: #0000; border: 1px dashed #c25f0e; }
+</style>
+</head>
+<body>
+<h1>Common Era calendar lineage — <span style="font-weight:400">live from the database</span></h1>
+<div class="proposed-banner">⚠ ALL DATA ON THIS TIMELINE IS <b>PROPOSED</b>, NOT ACCEPTED — awaiting owner review (spec §11.6). Source: 13 verbatim passages from 3 cited sources.</div>
+<p class="note">Each item is a calendar-<i>change node</i> (spec §7.1): every reform, era change, or renaming is its own node, linked into a lineage. Dates shown exactly as the source states them; converted day numbers arrive with the Phase 2 alignment layer.</p>
+<div id="timeline"></div>
+<p class="legend"><b>Legend:</b>
+  <span><i class="sw" style="background:#3f9d6b66"></i>era change</span>
+  <span><i class="sw" style="background:#c25f0e66"></i>structural reform</span>
+  <span><i class="sw" style="background:#4f7cdf66"></i>renaming (the AD → CE chain)</span>
+</p>
+<script>
+fetch('data/ce_lineage.json').then(r => r.json()).then(data => {
+  const yearParse = s => {
+    // source-stated dates: take the leading number as the year (display only, not conversion)
+    const m = /^(-?\d{4})/.exec(s || '');
+    return m ? parseInt(m[1], 10) : null;
+  };
+  const items = [];
+  for (const c of data.changes) {
+    const y = yearParse(c.date_original);
+    const cls = c.change_type.includes('era change') ? 'era-change'
+              : c.change_type.includes('reform') ? 'reform' : 'renaming';
+    if (y === null) continue;
+    items.push({
+      id: c.id,
+      content: `${c.name}<br><small>${c.date_original} · change type: ${c.change_type}</small>`,
+      start: `${String(y).padStart(4, '0')}-01-01`,
+      className: cls,
+      title: `${c.name}\nchange type: ${c.change_type}\ndate as stated: ${c.date_original}\nstatus: ${c.status}\nlineage: ${data.lineage.filter(l => l.from === c.id || l.to === c.id).map(l => l.type).join(', ') || 'root'}`,
+    });
+  }
+  const ds = new vis.DataSet(items);
+  const options = {
+    width: '100%', height: '65vh', stack: true,
+    showCurrentTime: true,
+    zoomMin: 1000 * 60 * 60 * 24 * 30,
+    zoomMax: 1000 * 60 * 60 * 24 * 365 * 2500, // full range back to 525 CE
+    tooltip: { followMouse: true },
+    start: '0500-01-01', end: '1900-01-01',   // focus on the lineage span
+  };
+  new vis.Timeline(document.getElementById('timeline'), ds, options);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+{
+  "exported_at": "2026-11-15",
+  "bubble": "Common Era calendar (English-language scholarship)",
+  "source_urls": [
+    "https://en.wikipedia.org/wiki/Common_Era",
+    "https://en.wikipedia.org/wiki/Inter_gravissimas",
+    "https://en.wikipedia.org/wiki/Dionysius_Exiguus"
+  ],
+  "review_status": "ALL PROPOSED — owner review pending (spec §11.6)",
+  "changes": [
+    {
+      "id": "be1c78c1-4a16-42eb-b40c-961d9a8615a0",
+      "name": "Anno Domini epoch (Dionysian era)",
+      "change_type": "era change",
+      "date_original": "525",
+      "status": "proposed"
+    },
+    {
+      "id": "7c24766d-fe8c-4bbf-90e2-99c5b37be2dc",
+      "name": "\"Anni Domini Nostri Jesu Christi\" label introduced",
+      "change_type": "renaming",
+      "date_original": "525",
+      "status": "proposed"
+    },
+    {
+      "id": "9aa26dab-fd5e-4970-960d-6c365a70a071",
+      "name": "Bede: years before 1 backwards, no year zero",
+      "change_type": "era change (practice)",
+      "date_original": "731",
+      "status": "proposed"
+    },
+    {
+      "id": "912ebcb9-dbbf-4978-8bd9-54cf2e70c407",
+      "name": "First English use of \"Common Era\"",
+      "change_type": "renaming",
+      "date_original": "1708",
+      "status": "proposed"
+    },
+    {
+      "id": "e530f512-9ede-436e-abff-5ed9d7f4b989",
+      "name": "\"Common Era (of Christ)\" in astronomy book",
+      "change_type": "renaming",
+      "date_original": "1715",
+      "status": "proposed"
+    },
+    {
+      "id": "04006d09-734c-4fe5-99f0-c2a71ec757dd",
+      "name": "\"vulgar era\" synonym in German translation",
+      "change_type": "renaming",
+      "date_original": "1770",
+      "status": "proposed"
+    },
+    {
+      "id": "75a1c206-9afa-4bcd-b563-0ead4d6ab01a",
+      "name": "Britannica: vulgar era ≡ common era",
+      "change_type": "renaming",
+      "date_original": "1797",
+      "status": "proposed"
+    },
+    {
+      "id": "dedbea44-3272-4b24-80b7-a82c51b5b2c6",
+      "name": "Campbell: vulgar era called Anno Domini",
+      "change_type": "renaming",
+      "date_original": "1835",
+      "status": "proposed"
+    },
+    {
+      "id": "05b38f8a-8784-4375-96bb-7cbdba6173a4",
+      "name": "Gregorian reform (Inter gravissimas)",
+      "change_type": "structural reform",
+      "date_original": "1582-02-24 (Julian)",
+      "status": "proposed"
+    },
+    {
+      "id": "1ba0677c-b1f7-498b-b716-c7a9f277349a",
+      "name": "\"New Style\" name for reformed calendar (orthodox christendom)",
+      "change_type": "renaming (regional variant)",
+      "date_original": "1582",
+      "status": "proposed"
+    }
+  ],
+  "lineage": [
+    {
+      "from": "05b38f8a-8784-4375-96bb-7cbdba6173a4",
+      "to": "be1c78c1-4a16-42eb-b40c-961d9a8615a0",
+      "type": "derived_from"
+    },
+    {
+      "from": "1ba0677c-b1f7-498b-b716-c7a9f277349a",
+      "to": "05b38f8a-8784-4375-96bb-7cbdba6173a4",
+      "type": "derived_from"
+    }
+  ]
+}

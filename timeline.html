@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Chronology Tool X — CE Calendar Lineage Timeline</title>
+<link rel="stylesheet" href="vendor/vis-timeline-graph2d.min.css"/>
+<script src="vendor/vis-timeline-graph2d.min.js"></script>
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, "Segoe UI", sans-serif; margin: 0; padding: 1.5rem; }
+  h1 { font-size: 1.2rem; }
+  .note { color: #b26a00; font-size: .85rem; max-width: 60rem; }
+  #timeline { width: 100%; height: 70vh; border: 1px solid #ccc2; border-radius: 6px; }
+  .vis-item.julian { background-color: #4f7cdf33; border-color: #4f7cdf; }
+  .vis-item.reform { background-color: #c25f0e33; border-color: #c25f0e; }
+  .vis-item.era { background-color: #3f9d6b33; border-color: #3f9d6b; }
+</style>
+</head>
+<body>
+<h1>Common Era calendar lineage — Julian → Gregorian <span class="note">(first calendar in the system)</span></h1>
+<p class="note">⚠ Dates below are ILLUSTRATIVE examples per spec §1/§17 — to be replaced by owner-entered, passage-cited claims before any are treated as data.</p>
+<div id="timeline"></div>
+<script>
+// Illustrative seed data for the CE lineage. Structure mirrors the plan's claim model:
+// each item = a calendar-change node (spec §7.1) with change type.
+const items = new vis.DataSet([
+  { id: 'julian', content: 'Julian calendar<br><small>change type: introduction (illustrative)</small>',
+    start: '-0044-01-01', end: '1582-10-04', className: 'julian',
+    title: 'Reform attributed to Julius Caesar, 45 BCE (Roman calendar) — verify before entry' },
+  { id: 'gregorian', content: 'Gregorian calendar<br><small>change type: structural reform</small>',
+    start: '1582-10-15', end: new Date(), className: 'reform',
+    title: 'Gregory XIII, Inter gravissimas — jump of 10 days (1582-10-04 → 1582-10-15)' },
+  { id: 'reform-gap', content: 'Reform gap (10 days omitted)', start: '1582-10-05', end: '1582-10-14',
+    className: 'era', type: 'background',
+    title: 'Days 5–14 Oct 1582 do not exist in the Gregorian calendar' },
+  { id: 'ce-era', content: 'CE/AD era epoch<br><small>change type: era change</small>',
+    start: '0001-01-01', type: 'point', className: 'era',
+    title: 'Dionysian era — epoch as counted in the Julian calendar' },
+  { id: 'british', content: 'Britain adopts Gregorian<br><small>regional variant (change type: era change, regional)</small>',
+    start: '1752-09-14', type: 'point',
+    title: 'Calendar (New Style) Act 1750 — 11 days omitted (Sep 3 → Sep 14, 1752) — illustrative' },
+]);
+const options = {
+  width: '100%', height: '70vh',
+  showCurrentTime: true,
+  zoomMin: 1000 * 60 * 60 * 24 * 30,        // ~1 month
+  zoomMax: 1000 * 60 * 60 * 24 * 365 * 400, // ~400 years
+  stack: true,
+  format: { minorLabels: { millisecond: '', second: '', minute: '', hour: '' } },
+  tooltip: { followMouse: true },
+};
+new vis.Timeline(document.getElementById('timeline'), items, options);
+</script>
+</body>
+</html>
