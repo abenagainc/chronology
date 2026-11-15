@@ -140,7 +140,7 @@
           "name": "New calendar in operation (by edict)",
           "change_type": "creation",
           "date_original": "1 January 45 BCE",
-          "year_display": -1,
+          "year_display": -45,
           "status": "proposed",
           "node_kind": "calendar"
         },
@@ -167,7 +167,7 @@
           "name": "Twelve intercalations in thirty-six years (nine due)",
           "change_type": "operating error",
           "date_original": "by 9 BCE",
-          "year_display": null,
+          "year_display": -9,
           "status": "proposed",
           "node_kind": "calendar"
         },
