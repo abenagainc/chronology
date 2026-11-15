@@ -66,10 +66,8 @@ async function load() {
   const groups = new vis.DataSet();
   const items = new vis.DataSet();
 
-  const order = ["Common Era calendar (English-language scholarship)"];
-  const sorted = [...bubblesData.bubbles].sort((a, b) =>
-    (order.includes(b.label) ? 1 : 0) - (order.includes(a.label) ? 1 : 0) ||
-    a.label.localeCompare(b.label));
+  // export order IS chronological (earliest attested year first) — trust it
+  const sorted = [...bubblesData.bubbles];
 
   let gid = 0;
   for (const b of sorted) {
@@ -134,7 +132,9 @@ async function load() {
 
     // ---- era bands ----
     for (const e of b.eras) {
-      const yStart = parseInt(String(e.epoch_date || '').replace(/[^0-9-]/g, ''), 10);
+      const yStart = (e.epoch_year !== null && e.epoch_year !== undefined)
+        ? e.epoch_year
+        : parseInt(String(e.epoch_date || '').replace(/[^0-9-]/g, ''), 10);
       if (isNaN(yStart)) continue;
       items.add({
         group: sub.era, id: gkey + '-e-' + e.id,
