@@ -264,7 +264,14 @@
           "epoch": "year 1 = 1 Thoth of Diocletian's accession year (29 August 284) by Alexandrian reckoning",
           "epoch_date": "29 August 284",
           "renames": [],
-          "usages": [],
+          "usages": [
+            {
+              "note": "Roman years counted by consuls/eras incl. Era of Martyrs until Dionysius; per the source: Dionysius devised AD 'to replace the Era of the Martyrs system'",
+              "calendar": "Julian calendar created (Caesar's edict, design with Sosigenes)",
+              "used_from": null,
+              "used_until": "525/532"
+            }
+          ],
           "status": "proposed",
           "epoch_year": 284
         }
@@ -347,25 +354,7 @@
           "node_kind": "calendar"
         }
       ],
-      "eras": [
-        {
-          "id": "212cd801-f8ce-430c-8ead-229bb8cf171f",
-          "name": "Era of the Martyrs (Diocletian)",
-          "epoch": "year 1 = accession of Emperor Diocletian (284)",
-          "epoch_date": "284",
-          "renames": [],
-          "usages": [
-            {
-              "note": "Roman years counted by consuls/eras incl. Era of Martyrs until Dionysius; per the source: Dionysius devised AD 'to replace the Era of the Martyrs system'",
-              "calendar": "Julian calendar created (Caesar's edict, design with Sosigenes)",
-              "used_from": null,
-              "used_until": "525/532"
-            }
-          ],
-          "status": "proposed",
-          "epoch_year": 284
-        }
-      ],
+      "eras": [],
       "sources": []
     },
     {
@@ -419,18 +408,6 @@
     }
   ],
   "links": [
-    {
-      "type": "replaced_era",
-      "from": "Dionysian era (Anno Domini)",
-      "to": "Era of the Martyrs (Diocletian)",
-      "status": "proposed"
-    },
-    {
-      "type": "era_used_by",
-      "from": "New calendar in operation (by edict)",
-      "to": "Era of the Martyrs (Diocletian)",
-      "status": "proposed"
-    },
     {
       "type": "derived_from",
       "from": "\"New Style\" name for reformed calendar (orthodox christendom)",
@@ -489,6 +466,18 @@
       "type": "era_used_by",
       "from": "Gregorian calendar",
       "to": "Dionysian era (Anno Domini), carried over unchanged (Gregorian usage)",
+      "status": "proposed"
+    },
+    {
+      "type": "replaced_era",
+      "from": "Dionysian era (Anno Domini)",
+      "to": "Era of the Martyrs (anno martyrum)",
+      "status": "proposed"
+    },
+    {
+      "type": "era_used_by",
+      "from": "New calendar in operation (by edict)",
+      "to": "Era of the Martyrs (anno martyrum)",
       "status": "proposed"
     }
   ]
