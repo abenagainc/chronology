@@ -210,6 +210,16 @@
       ],
       "eras": [
         {
+          "id": "3d04ce34-401b-4f3b-be96-cc73eaa1639e",
+          "name": "Roman pre-consular/regnal usage (AUC, consulships)",
+          "epoch": "year 1 = founding of Rome (AUC 1, 753 BCE by the Varronian count)",
+          "epoch_date": null,
+          "renames": [],
+          "usages": [],
+          "status": "proposed",
+          "epoch_year": null
+        },
+        {
           "id": "533e10c5-7e66-4b5e-80ad-b4d98206fac7",
           "name": "Dionysian era (Anno Domini)",
           "epoch": "year 1 = incarnation of Jesus (as Dionysius believed its date to be)",
@@ -240,14 +250,14 @@
             {
               "note": "per the source: Easter-table usage from 532; era devised ~525",
               "calendar": "Julian calendar created (Caesar's edict, design with Sosigenes)",
-              "used_from": "532",
-              "used_until": null
+              "used_from": "525",
+              "used_until": "1582 (carried into Gregorian)"
             },
             {
               "note": "carried over unchanged: the reform changed structure (leap rule, 10-day jump), NOT the era — no renumbering",
               "calendar": "Gregorian reform (Inter gravissimas)",
-              "used_from": "1582",
-              "used_until": null
+              "used_from": "525",
+              "used_until": "1582 (carried into Gregorian)"
             }
           ],
           "status": "proposed",
@@ -466,6 +476,12 @@
       "type": "era_used_by",
       "from": "New calendar in operation (by edict)",
       "to": "Era of the Martyrs (anno martyrum)",
+      "status": "proposed"
+    },
+    {
+      "type": "era_used_by",
+      "from": "New calendar in operation (by edict)",
+      "to": "Roman pre-consular/regnal usage (AUC, consulships)",
       "status": "proposed"
     }
   ]
