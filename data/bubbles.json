@@ -10,20 +10,13 @@
       "description": null,
       "calendar_changes": [
         {
-          "id": "be1c78c1-4a16-42eb-b40c-961d9a8615a0",
-          "name": "Anno Domini epoch (Dionysian era)",
-          "change_type": "era change",
-          "date_original": "525",
-          "year_display": 525,
-          "status": "proposed"
-        },
-        {
           "id": "7c24766d-fe8c-4bbf-90e2-99c5b37be2dc",
           "name": "\"Anni Domini Nostri Jesu Christi\" label introduced",
           "change_type": "renaming",
           "date_original": "525",
           "year_display": 525,
-          "status": "proposed"
+          "status": "proposed",
+          "node_kind": "calendar"
         },
         {
           "id": "9aa26dab-fd5e-4970-960d-6c365a70a071",
@@ -31,7 +24,8 @@
           "change_type": "era change (practice)",
           "date_original": "731",
           "year_display": 731,
-          "status": "proposed"
+          "status": "proposed",
+          "node_kind": "calendar"
         },
         {
           "id": "912ebcb9-dbbf-4978-8bd9-54cf2e70c407",
@@ -39,7 +33,8 @@
           "change_type": "renaming",
           "date_original": "1708",
           "year_display": 1708,
-          "status": "proposed"
+          "status": "proposed",
+          "node_kind": "calendar"
         },
         {
           "id": "e530f512-9ede-436e-abff-5ed9d7f4b989",
@@ -47,7 +42,8 @@
           "change_type": "renaming",
           "date_original": "1715",
           "year_display": 1715,
-          "status": "proposed"
+          "status": "proposed",
+          "node_kind": "calendar"
         },
         {
           "id": "04006d09-734c-4fe5-99f0-c2a71ec757dd",
@@ -55,7 +51,8 @@
           "change_type": "renaming",
           "date_original": "1770",
           "year_display": 1770,
-          "status": "proposed"
+          "status": "proposed",
+          "node_kind": "calendar"
         },
         {
           "id": "75a1c206-9afa-4bcd-b563-0ead4d6ab01a",
@@ -63,7 +60,8 @@
           "change_type": "renaming",
           "date_original": "1797",
           "year_display": 1797,
-          "status": "proposed"
+          "status": "proposed",
+          "node_kind": "calendar"
         },
         {
           "id": "dedbea44-3272-4b24-80b7-a82c51b5b2c6",
@@ -71,95 +69,8 @@
           "change_type": "renaming",
           "date_original": "1835",
           "year_display": 1835,
-          "status": "proposed"
-        },
-        {
-          "id": "05b38f8a-8784-4375-96bb-7cbdba6173a4",
-          "name": "Gregorian reform (Inter gravissimas)",
-          "change_type": "structural reform",
-          "date_original": "1582-02-24 (Julian)",
-          "year_display": 1582,
-          "status": "proposed"
-        },
-        {
-          "id": "1ba0677c-b1f7-498b-b716-c7a9f277349a",
-          "name": "\"New Style\" name for reformed calendar (orthodox christendom)",
-          "change_type": "renaming (regional variant)",
-          "date_original": "1582",
-          "year_display": 1582,
-          "status": "proposed"
-        },
-        {
-          "id": "163a2c6b-cbc7-4521-9467-bc20a74f9e92",
-          "name": "Realigning year-start: 46 BCE made 445 days (\"last year of confusion\")",
-          "change_type": "realignment",
-          "date_original": "46 BCE",
-          "year_display": -46,
-          "status": "proposed"
-        },
-        {
-          "id": "75ca8bc3-88f9-48a2-b5dc-678439b1c624",
-          "name": "Julian calendar created (Caesar's edict, design with Sosigenes)",
-          "change_type": "creation",
-          "date_original": "1 January 45 BCE",
-          "year_display": -1,
-          "status": "proposed"
-        },
-        {
-          "id": "19e56b7d-926a-4efa-b734-a7d30949e29b",
-          "name": "Quintilis renamed Iulius (July)",
-          "change_type": "renaming",
-          "date_original": "44 BCE",
-          "year_display": -44,
-          "status": "proposed"
-        },
-        {
-          "id": "0537192e-81dd-4300-8f06-83c990b75e59",
-          "name": "Sextilis renamed Augustus",
-          "change_type": "renaming",
-          "date_original": "8 BCE",
-          "year_display": -8,
-          "status": "proposed"
-        },
-        {
-          "id": "20ea8cc7-1c1c-4b0c-8cff-54b4f6dc6fc5",
-          "name": "Leap-year error: intercalation every 3 years instead of 4",
-          "change_type": "operating error",
-          "date_original": "42 BCE – 9 BCE",
-          "year_display": -42,
-          "status": "proposed"
-        },
-        {
-          "id": "0ea4395c-1027-48a2-96f1-c7747ed72408",
-          "name": "Augustus's correction: leap days suspended for 12 years",
-          "change_type": "correction",
-          "date_original": "8 BCE",
-          "year_display": -8,
-          "status": "proposed"
-        },
-        {
-          "id": "a542e48d-bd72-49ff-9f2d-54b43978f720",
-          "name": "Quadriennial leap years resumed as Caesar intended",
-          "change_type": "stabilization",
-          "date_original": "AD 4 (resumption; AD 8 first leap year under the standard reconstruction)",
-          "year_display": 4,
-          "status": "proposed"
-        },
-        {
-          "id": "6b3863c9-888d-4324-9143-eba999bd965c",
-          "name": "7-day week displaces the 8-day nundinal cycle",
-          "change_type": "structural add-on",
-          "date_original": "1st century AD",
-          "year_display": 1,
-          "status": "proposed"
-        },
-        {
-          "id": "3726cd1e-5c14-4c47-a22f-ca9458bb8bb2",
-          "name": "Gregorian reform (leap rule change; 10 days omitted)",
-          "change_type": "structural reform",
-          "date_original": "1582",
-          "year_display": 1582,
-          "status": "proposed"
+          "status": "proposed",
+          "node_kind": "calendar"
         }
       ],
       "eras": [
@@ -178,49 +89,6 @@
             }
           ],
           "status": "proposed"
-        },
-        {
-          "id": "533e10c5-7e66-4b5e-80ad-b4d98206fac7",
-          "name": "Dionysian era (Anno Domini)",
-          "epoch": "year 1 = incarnation of Jesus (as Dionysius believed its date to be)",
-          "epoch_date": "525",
-          "renames": [
-            {
-              "label": "\"Anni Domini Nostri Jesu Christi\" label introduced",
-              "date": null
-            },
-            {
-              "label": "\"vulgar era\" synonym in German translation",
-              "date": null
-            },
-            {
-              "label": "First English use of \"Common Era\"",
-              "date": null
-            },
-            {
-              "label": "Britannica: vulgar era ≡ common era",
-              "date": null
-            },
-            {
-              "label": "Campbell: vulgar era called Anno Domini",
-              "date": null
-            }
-          ],
-          "usages": [
-            {
-              "note": "per the source: Easter-table usage from 532; era devised ~525",
-              "calendar": "Julian calendar created (Caesar's edict, design with Sosigenes)",
-              "used_from": "532",
-              "used_until": null
-            },
-            {
-              "note": "carried over unchanged: the reform changed structure (leap rule, 10-day jump), NOT the era — no renumbering",
-              "calendar": "Gregorian reform (Inter gravissimas)",
-              "used_from": "1582",
-              "used_until": null
-            }
-          ],
-          "status": "proposed"
         }
       ],
       "sources": []
@@ -231,7 +99,26 @@
       "status": "active",
       "nascent": false,
       "description": "Corpus of the Era of the Martyrs (anno martyrum / anno Diocletiani): four-tuple = Coptic/Greek / Coptic & Greek scripts / Coptic numerals / Alexandrian calendar, epoch 1 Thoth = 29 August 284 (Diocletian's accession year by Alexandrian reckoning). Used by the Church of Alexandria from the 4th century and by the Coptic Church to the present. Assumed held per owner rule (2026-11-15): Wikipedia description treated as source content.",
-      "calendar_changes": [],
+      "calendar_changes": [
+        {
+          "id": "4117133f-4a14-4f4e-839a-7a86baa4310d",
+          "name": "Church of Alexandria begins use",
+          "change_type": "era change (adoption)",
+          "date_original": "4th century",
+          "year_display": 4,
+          "status": "proposed",
+          "node_kind": "event"
+        },
+        {
+          "id": "00bf235e-fbd9-442a-a2e6-23156292f3b3",
+          "name": "Coptic Orthodox Church continues use to present",
+          "change_type": "era change (continuation)",
+          "date_original": "from 5th century",
+          "year_display": null,
+          "status": "proposed",
+          "node_kind": "event"
+        }
+      ],
       "eras": [
         {
           "id": "6170a1ab-0e09-4833-bb61-e4cb44b685a4",
@@ -277,12 +164,58 @@
       "description": "Corpus of Latin sources under the JULIAN calendar (four-tuple: Latin / Latin alphabet / Roman numerals / Julian): Caesar's edict (45 BCE), Macrobius's Saturnalia (~430), Dionysius Exiguus's Easter table (525/532), Bede's Historia ecclesiastica (731), and the bull Inter gravissimas (24 Feb 1582, Julian — the corpus's last document, describing the Gregorian creation). All sources assumed held per owner rule (2026-11-15).",
       "calendar_changes": [
         {
+          "id": "19e56b7d-926a-4efa-b734-a7d30949e29b",
+          "name": "Quintilis renamed Iulius (July)",
+          "change_type": "renaming",
+          "date_original": "44 BCE",
+          "year_display": -44,
+          "status": "proposed",
+          "node_kind": "calendar"
+        },
+        {
+          "id": "0537192e-81dd-4300-8f06-83c990b75e59",
+          "name": "Sextilis renamed Augustus",
+          "change_type": "renaming",
+          "date_original": "8 BCE",
+          "year_display": -8,
+          "status": "proposed",
+          "node_kind": "calendar"
+        },
+        {
+          "id": "a542e48d-bd72-49ff-9f2d-54b43978f720",
+          "name": "Quadriennial leap years resumed as Caesar intended",
+          "change_type": "stabilization",
+          "date_original": "AD 4 (resumption; AD 8 first leap year under the standard reconstruction)",
+          "year_display": 4,
+          "status": "proposed",
+          "node_kind": "calendar"
+        },
+        {
+          "id": "6b3863c9-888d-4324-9143-eba999bd965c",
+          "name": "7-day week displaces the 8-day nundinal cycle",
+          "change_type": "structural add-on",
+          "date_original": "1st century AD",
+          "year_display": 1,
+          "status": "proposed",
+          "node_kind": "calendar"
+        },
+        {
+          "id": "1ba0677c-b1f7-498b-b716-c7a9f277349a",
+          "name": "\"New Style\" name for reformed calendar (orthodox christendom)",
+          "change_type": "renaming (regional variant)",
+          "date_original": "1582",
+          "year_display": 1582,
+          "status": "proposed",
+          "node_kind": "calendar"
+        },
+        {
           "id": "b6be0a2d-df88-40ae-9cf3-f2d9e3cde40a",
           "name": "Bull issued (24 February 1582, Julian)",
           "change_type": "creation (of reform)",
           "date_original": "24 February 1582 (Julian)",
-          "year_display": 24,
-          "status": "proposed"
+          "year_display": 1582,
+          "status": "proposed",
+          "node_kind": "calendar"
         },
         {
           "id": "1a251371-e426-4f1f-8c12-5d001bcb186b",
@@ -290,7 +223,8 @@
           "change_type": "structural reform",
           "date_original": "1582",
           "year_display": 1582,
-          "status": "proposed"
+          "status": "proposed",
+          "node_kind": "calendar"
         },
         {
           "id": "8e5bc7a7-72d7-4c06-83f3-4300ab4b0972",
@@ -298,7 +232,8 @@
           "change_type": "realignment",
           "date_original": "46 BCE",
           "year_display": -46,
-          "status": "proposed"
+          "status": "proposed",
+          "node_kind": "calendar"
         },
         {
           "id": "9c322daf-d4e2-4c51-bf4d-e9748ac7a3f2",
@@ -306,7 +241,8 @@
           "change_type": "creation",
           "date_original": "1 January 45 BCE",
           "year_display": -1,
-          "status": "proposed"
+          "status": "proposed",
+          "node_kind": "calendar"
         },
         {
           "id": "a6ba96c2-f562-4993-9ada-8594215cb582",
@@ -314,7 +250,8 @@
           "change_type": "correction",
           "date_original": "8 BCE",
           "year_display": -8,
-          "status": "proposed"
+          "status": "proposed",
+          "node_kind": "calendar"
         },
         {
           "id": "36bbeb21-0da5-4620-b7d7-573419fdb1d5",
@@ -322,7 +259,8 @@
           "change_type": "operating error",
           "date_original": "42 BCE (start of error)",
           "year_display": -42,
-          "status": "proposed"
+          "status": "proposed",
+          "node_kind": "calendar"
         },
         {
           "id": "d41fdf24-107c-453b-9c19-84dbb3bbef01",
@@ -330,7 +268,8 @@
           "change_type": "operating error",
           "date_original": "by 9 BCE",
           "year_display": null,
-          "status": "proposed"
+          "status": "proposed",
+          "node_kind": "calendar"
         },
         {
           "id": "f8eb3f15-c575-4c78-8915-3a939a951742",
@@ -338,7 +277,8 @@
           "change_type": "renaming",
           "date_original": "525",
           "year_display": 525,
-          "status": "proposed"
+          "status": "proposed",
+          "node_kind": "calendar"
         },
         {
           "id": "00524729-f2e0-4cc8-9594-ccaeb65b698a",
@@ -346,7 +286,8 @@
           "change_type": "era change",
           "date_original": "525",
           "year_display": 525,
-          "status": "proposed"
+          "status": "proposed",
+          "node_kind": "calendar"
         },
         {
           "id": "8e419188-edb4-46df-b911-7d23be760b2d",
@@ -354,7 +295,8 @@
           "change_type": "era change",
           "date_original": "525",
           "year_display": 525,
-          "status": "proposed"
+          "status": "proposed",
+          "node_kind": "calendar"
         },
         {
           "id": "4ac8d0b5-9503-4596-9f14-44cc368331f9",
@@ -362,10 +304,55 @@
           "change_type": "era change (practice)",
           "date_original": "731",
           "year_display": 731,
+          "status": "proposed",
+          "node_kind": "calendar"
+        }
+      ],
+      "eras": [
+        {
+          "id": "533e10c5-7e66-4b5e-80ad-b4d98206fac7",
+          "name": "Dionysian era (Anno Domini)",
+          "epoch": "year 1 = incarnation of Jesus (as Dionysius believed its date to be)",
+          "epoch_date": "525",
+          "renames": [
+            {
+              "label": "\"Anni Domini Nostri Jesu Christi\" label introduced",
+              "date": null
+            },
+            {
+              "label": "\"vulgar era\" synonym in German translation",
+              "date": null
+            },
+            {
+              "label": "First English use of \"Common Era\"",
+              "date": null
+            },
+            {
+              "label": "Britannica: vulgar era ≡ common era",
+              "date": null
+            },
+            {
+              "label": "Campbell: vulgar era called Anno Domini",
+              "date": null
+            }
+          ],
+          "usages": [
+            {
+              "note": "per the source: Easter-table usage from 532; era devised ~525",
+              "calendar": "Julian calendar created (Caesar's edict, design with Sosigenes)",
+              "used_from": "532",
+              "used_until": null
+            },
+            {
+              "note": "carried over unchanged: the reform changed structure (leap rule, 10-day jump), NOT the era — no renumbering",
+              "calendar": "Gregorian reform (Inter gravissimas)",
+              "used_from": "1582",
+              "used_until": null
+            }
+          ],
           "status": "proposed"
         }
       ],
-      "eras": [],
       "sources": [
         {
           "label": "Julian calendar (Latin tradition)",
@@ -400,69 +387,69 @@
   ],
   "links": [
     {
-      "type": "derived_from",
-      "from": "Gregorian reform (Inter gravissimas)",
-      "to": "Anno Domini epoch (Dionysian era)",
+      "type": "replaced_era",
+      "from": "Dionysian era (Anno Domini)",
+      "to": "Era of the Martyrs (Diocletian)",
+      "status": "proposed"
+    },
+    {
+      "type": "era_used_by",
+      "from": "New calendar in operation (by edict)",
+      "to": "Era of the Martyrs (Diocletian)",
       "status": "proposed"
     },
     {
       "type": "derived_from",
       "from": "\"New Style\" name for reformed calendar (orthodox christendom)",
-      "to": "Gregorian reform (Inter gravissimas)",
+      "to": "Julian calendar reformed; Gregorian calendar named",
+      "status": "proposed"
+    },
+    {
+      "type": "era_used_by",
+      "from": "Julian calendar reformed; Gregorian calendar named",
+      "to": "Dionysian era (Anno Domini)",
       "status": "proposed"
     },
     {
       "type": "derived_from",
-      "from": "Realigning year-start: 46 BCE made 445 days (\"last year of confusion\")",
-      "to": "Julian calendar created (Caesar's edict, design with Sosigenes)",
+      "from": "Julian calendar reformed; Gregorian calendar named",
+      "to": "Dionysius devises the new era (epoch = incarnation)",
       "status": "proposed"
     },
     {
       "type": "derived_from",
-      "from": "Julian calendar created (Caesar's edict, design with Sosigenes)",
-      "to": "Leap-year error: intercalation every 3 years instead of 4",
+      "from": "Edict: 46 BCE made 445 days (realignment)",
+      "to": "New calendar in operation (by edict)",
+      "status": "proposed"
+    },
+    {
+      "type": "era_used_by",
+      "from": "New calendar in operation (by edict)",
+      "to": "Dionysian era (Anno Domini)",
       "status": "proposed"
     },
     {
       "type": "derived_from",
-      "from": "Leap-year error: intercalation every 3 years instead of 4",
-      "to": "Augustus's correction: leap days suspended for 12 years",
+      "from": "New calendar in operation (by edict)",
+      "to": "Pontifices' error: leap day every three years",
       "status": "proposed"
     },
     {
       "type": "derived_from",
-      "from": "Augustus's correction: leap days suspended for 12 years",
+      "from": "Augustus's order: twelve years without intercalation",
       "to": "Quadriennial leap years resumed as Caesar intended",
       "status": "proposed"
     },
     {
       "type": "derived_from",
+      "from": "Pontifices' error: leap day every three years",
+      "to": "Augustus's order: twelve years without intercalation",
+      "status": "proposed"
+    },
+    {
+      "type": "derived_from",
       "from": "Quadriennial leap years resumed as Caesar intended",
-      "to": "Gregorian reform (leap rule change; 10 days omitted)",
-      "status": "proposed"
-    },
-    {
-      "type": "era_used_by",
-      "from": "Julian calendar created (Caesar's edict, design with Sosigenes)",
-      "to": "Era of the Martyrs (Diocletian)",
-      "status": "proposed"
-    },
-    {
-      "type": "era_used_by",
-      "from": "Julian calendar created (Caesar's edict, design with Sosigenes)",
-      "to": "Dionysian era (Anno Domini)",
-      "status": "proposed"
-    },
-    {
-      "type": "era_used_by",
-      "from": "Gregorian reform (Inter gravissimas)",
-      "to": "Dionysian era (Anno Domini)",
-      "status": "proposed"
-    },
-    {
-      "type": "replaced_era",
-      "from": "Dionysian era (Anno Domini)",
-      "to": "Era of the Martyrs (Diocletian)",
+      "to": "Julian calendar reformed; Gregorian calendar named",
       "status": "proposed"
     }
   ]
