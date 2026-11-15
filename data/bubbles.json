@@ -3,6 +3,60 @@
   "note": "years parsed from source-stated strings for DISPLAY ONLY; real conversion is the Phase 2 alignment layer. Nascent bubbles are ASSUMED (owner rule) until source examination.",
   "bubbles": [
     {
+      "id": "2c7876c8-9cda-42de-adcd-9ce84ab42354",
+      "label": "Diocletian era (Alexandrian tradition)",
+      "status": "active",
+      "nascent": false,
+      "description": "Corpus of the Era of the Martyrs (anno martyrum / anno Diocletiani): four-tuple = Coptic/Greek / Coptic & Greek scripts / Coptic numerals / Alexandrian calendar, epoch 1 Thoth = 29 August 284 (Diocletian's accession year by Alexandrian reckoning). Used by the Church of Alexandria from the 4th century and by the Coptic Church to the present. Assumed held per owner rule (2026-11-15): Wikipedia description treated as source content.",
+      "calendar_changes": [
+        {
+          "id": "4117133f-4a14-4f4e-839a-7a86baa4310d",
+          "name": "Church of Alexandria begins use",
+          "change_type": "era change (adoption)",
+          "date_original": "4th century",
+          "year_display": 4,
+          "status": "proposed",
+          "node_kind": "event"
+        },
+        {
+          "id": "00bf235e-fbd9-442a-a2e6-23156292f3b3",
+          "name": "Coptic Orthodox Church continues use to present",
+          "change_type": "era change (continuation)",
+          "date_original": "from 5th century",
+          "year_display": null,
+          "status": "proposed",
+          "node_kind": "event"
+        }
+      ],
+      "eras": [
+        {
+          "id": "6170a1ab-0e09-4833-bb61-e4cb44b685a4",
+          "name": "Era of the Martyrs (anno martyrum)",
+          "epoch": "year 1 = 1 Thoth of Diocletian's accession year (29 August 284) by Alexandrian reckoning",
+          "epoch_date": "29 August 284",
+          "renames": [],
+          "usages": [
+            {
+              "note": "Roman years counted by consuls/eras incl. Era of Martyrs until Dionysius; per the source: Dionysius devised AD 'to replace the Era of the Martyrs system'",
+              "calendar": "Julian calendar created (Caesar's edict, design with Sosigenes)",
+              "used_from": null,
+              "used_until": "525/532"
+            }
+          ],
+          "status": "proposed",
+          "epoch_year": 284
+        }
+      ],
+      "sources": [
+        {
+          "label": "Diocletian era (Alexandrian tradition)",
+          "status": "assumed/inferred"
+        }
+      ],
+      "descent_to": "Julian calendar (Latin tradition)",
+      "descent_type": "replaced_by"
+    },
+    {
       "id": "56066b97-17e9-44d9-b65d-95c9ad92cb1b",
       "label": "Julian calendar (Latin tradition)",
       "status": "active",
@@ -229,59 +283,60 @@
           "label": "Julian calendar (Latin tradition)",
           "status": "assumed/inferred"
         }
-      ]
+      ],
+      "descent_to": "Gregorian calendar (Latin tradition)",
+      "descent_type": "reformed_into"
     },
     {
-      "id": "2c7876c8-9cda-42de-adcd-9ce84ab42354",
-      "label": "Diocletian era (Alexandrian tradition)",
+      "id": "1f08a0ff-c82b-4a22-b03e-061f41095871",
+      "label": "Gregorian calendar (Latin tradition)",
       "status": "active",
       "nascent": false,
-      "description": "Corpus of the Era of the Martyrs (anno martyrum / anno Diocletiani): four-tuple = Coptic/Greek / Coptic & Greek scripts / Coptic numerals / Alexandrian calendar, epoch 1 Thoth = 29 August 284 (Diocletian's accession year by Alexandrian reckoning). Used by the Church of Alexandria from the 4th century and by the Coptic Church to the present. Assumed held per owner rule (2026-11-15): Wikipedia description treated as source content.",
+      "description": "Corpus of Latin sources under the GREGORIAN calendar (four-tuple: Latin / Latin alphabet / Roman numerals / Gregorian), from 15 Oct 1582 onward. Awaiting its first assumed-held source (natural candidate: Clavius, Romani calendarii a Gregorio XIII restituti explicatio, 1603). Its birth is attested from OUTSIDE, by the Julian-Latin bull of 1582.",
       "calendar_changes": [
         {
-          "id": "4117133f-4a14-4f4e-839a-7a86baa4310d",
-          "name": "Church of Alexandria begins use",
-          "change_type": "era change (adoption)",
-          "date_original": "4th century",
-          "year_display": 4,
+          "id": "8c80eb02-7602-4a88-b398-860215d54e78",
+          "name": "Clavius publishes Novi calendarii romani apologia (defence of the new calendar)",
+          "change_type": "era change (defence)",
+          "date_original": "1588",
+          "year_display": 1588,
           "status": "proposed",
           "node_kind": "event"
         },
         {
-          "id": "00bf235e-fbd9-442a-a2e6-23156292f3b3",
-          "name": "Coptic Orthodox Church continues use to present",
-          "change_type": "era change (continuation)",
-          "date_original": "from 5th century",
-          "year_display": null,
+          "id": "9925972b-b499-4473-a84c-d34b03509676",
+          "name": "Clavius publishes Romani calendarii… explicatio (explanation of the Gregorian calendar)",
+          "change_type": "era change (explanation)",
+          "date_original": "1603",
+          "year_display": 1603,
           "status": "proposed",
           "node_kind": "event"
         }
       ],
       "eras": [
         {
-          "id": "6170a1ab-0e09-4833-bb61-e4cb44b685a4",
-          "name": "Era of the Martyrs (anno martyrum)",
-          "epoch": "year 1 = 1 Thoth of Diocletian's accession year (29 August 284) by Alexandrian reckoning",
-          "epoch_date": "29 August 284",
+          "id": "fc0bee94-21db-46f4-9f77-f7f714cd499e",
+          "name": "Dionysian era (Anno Domini), carried over unchanged (Gregorian usage)",
+          "epoch": "inherited: year 1 = incarnation (the Dionysian epoch; NO new epoch at the 1582 reform — years were not renumbered)",
+          "epoch_date": null,
           "renames": [],
-          "usages": [
-            {
-              "note": "Roman years counted by consuls/eras incl. Era of Martyrs until Dionysius; per the source: Dionysius devised AD 'to replace the Era of the Martyrs system'",
-              "calendar": "Julian calendar created (Caesar's edict, design with Sosigenes)",
-              "used_from": null,
-              "used_until": "525/532"
-            }
-          ],
+          "usages": [],
           "status": "proposed",
-          "epoch_year": 284
+          "epoch_year": null
         }
       ],
       "sources": [
         {
-          "label": "Diocletian era (Alexandrian tradition)",
+          "label": "Gregorian calendar (Latin tradition)",
+          "status": "assumed/inferred"
+        },
+        {
+          "label": "Gregorian calendar (Latin tradition)",
           "status": "assumed/inferred"
         }
-      ]
+      ],
+      "descent_to": "Common Era calendar (English-language scholarship)",
+      "descent_type": "described_by_tradition"
     },
     {
       "id": "eb233b19-4870-4e0b-a41e-d00b01c6f2df",
@@ -356,55 +411,6 @@
       ],
       "eras": [],
       "sources": []
-    },
-    {
-      "id": "1f08a0ff-c82b-4a22-b03e-061f41095871",
-      "label": "Gregorian calendar (Latin tradition)",
-      "status": "active",
-      "nascent": false,
-      "description": "Corpus of Latin sources under the GREGORIAN calendar (four-tuple: Latin / Latin alphabet / Roman numerals / Gregorian), from 15 Oct 1582 onward. Awaiting its first assumed-held source (natural candidate: Clavius, Romani calendarii a Gregorio XIII restituti explicatio, 1603). Its birth is attested from OUTSIDE, by the Julian-Latin bull of 1582.",
-      "calendar_changes": [
-        {
-          "id": "8c80eb02-7602-4a88-b398-860215d54e78",
-          "name": "Clavius publishes Novi calendarii romani apologia (defence of the new calendar)",
-          "change_type": "era change (defence)",
-          "date_original": "1588",
-          "year_display": 1588,
-          "status": "proposed",
-          "node_kind": "event"
-        },
-        {
-          "id": "9925972b-b499-4473-a84c-d34b03509676",
-          "name": "Clavius publishes Romani calendarii… explicatio (explanation of the Gregorian calendar)",
-          "change_type": "era change (explanation)",
-          "date_original": "1603",
-          "year_display": 1603,
-          "status": "proposed",
-          "node_kind": "event"
-        }
-      ],
-      "eras": [
-        {
-          "id": "fc0bee94-21db-46f4-9f77-f7f714cd499e",
-          "name": "Dionysian era (Anno Domini), carried over unchanged (Gregorian usage)",
-          "epoch": "inherited: year 1 = incarnation (the Dionysian epoch; NO new epoch at the 1582 reform — years were not renumbered)",
-          "epoch_date": null,
-          "renames": [],
-          "usages": [],
-          "status": "proposed",
-          "epoch_year": null
-        }
-      ],
-      "sources": [
-        {
-          "label": "Gregorian calendar (Latin tradition)",
-          "status": "assumed/inferred"
-        },
-        {
-          "label": "Gregorian calendar (Latin tradition)",
-          "status": "assumed/inferred"
-        }
-      ]
     }
   ],
   "links": [

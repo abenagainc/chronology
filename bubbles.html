@@ -26,6 +26,10 @@
   .vis-group-level-1 .vis-inner { font-size: .74rem; color: #666; padding-left: .8rem; }
   .nascent-flag { background: #92400e1a; border: 1px solid #b45309; color: #92400e;
     display: inline-block; font-size: .66rem; padding: .05rem .45rem; border-radius: 99px; margin-left: .4rem; }
+  .descent-flag { background: #1d4ed81a; border: 1px solid #3b82f6; color: #1d4ed8;
+    display: inline-block; font-size: .66rem; padding: .05rem .45rem; border-radius: 99px; margin-left: .4rem;
+    cursor: help; }
+  p.note b.desc { color: #1d4ed8; }
   #err { color: #dc2626; font-size: .8rem; white-space: pre-wrap; }
 </style>
 </head>
@@ -102,7 +106,10 @@ async function load() {
 
     groups.add({
       id: id,
-      content: shortName + (b.nascent ? ' <span class="nascent-flag">assumed</span>' : ''),
+      content: shortName + (b.nascent ? ' <span class="nascent-flag">assumed</span>' : '') +
+        (b.descent_type
+          ? ` <span class="descent-flag" title="descent: ${b.descent_type} → ${(b.descent_to||'').replace(' — nascent bubble','')}">⤵ ${b.descent_type === 'replaced_by' ? 'replaced by' : b.descent_type === 'reformed_into' ? 'reformed into' : 'described by'}</span>`
+          : ''),
       value: id,
       nestedGroups: subIds.length ? subIds : undefined,
       treeLevel: 0,
