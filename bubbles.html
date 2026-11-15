@@ -7,43 +7,64 @@
 <script src="vendor/vis-timeline-graph2d.min.js"></script>
 <style>
   :root { color-scheme: light dark; }
-  body { font-family: -apple-system, "Segoe UI", sans-serif; margin: 0; padding: 1.5rem;
+  body { font-family: -apple-system, "Segoe UI", sans-serif; margin: 0; padding: 1rem 1.2rem;
          background: #fafafa; color: #222; }
-  h1 { font-size: 1.2rem; margin: 0 0 .3rem; }
-  .note { color: #555; font-size: .8rem; max-width: 65rem; margin: .2rem 0 .6rem; }
-  .legend { font-size: .75rem; margin: .4rem 0 1rem; color: #555; }
-  .legend span { margin-right: 1.1rem; }
-  .sw { display: inline-block; width: 11px; height: 11px; border-radius: 2px; margin-right: .25rem; vertical-align: middle; }
-  #timeline { width: 100%; height: 74vh; border: 1px solid #ccc2; border-radius: 6px; }
-  /* item classes */
+  h1 { font-size: 1.15rem; margin: 0 0 .25rem; }
+  .note { color: #555; font-size: .78rem; max-width: 68rem; margin: .15rem 0 .5rem; }
+  /* nav bar */
+  .nav { display: flex; gap: .4rem; align-items: center; margin: .4rem 0 .7rem; flex-wrap: wrap; }
+  .nav button { font: inherit; font-size: .8rem; padding: .28rem .75rem; border: 1px solid #c8c8c8;
+    border-radius: 6px; background: #fff; color: #333; cursor: pointer; }
+  .nav button:hover { background: #f0f0f0; }
+  .nav button:active { background: #e2e2e2; }
+  .nav .sep { width: 1px; height: 1.4rem; background: #d0d0d0; margin: 0 .25rem; }
+  .nav .range { font-size: .75rem; color: #666; min-width: 12rem; }
+  .legend { font-size: .72rem; margin: .2rem 0 .6rem; color: #555; }
+  .legend span { margin-right: 1rem; }
+  .sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: .22rem; vertical-align: middle; }
+  #timeline { width: 100%; height: 76vh; border: 1px solid #ccc2; border-radius: 6px; }
+  /* items */
   .vis-item.b-cal { background: #4f7cdf2e; border-color: #4f7cdf; }
   .vis-item.b-cal.reform { background: #c25f0e2e; border-color: #c25f0e; }
   .vis-item.b-era { background: #3f9d6b2e; border-color: #3f9d6b; }
   .vis-item.b-rename { background: #7c3aed2e; border-color: #7c3aed; }
   .vis-item.b-state { background: #2563eb22; border-color: #2563eb; font-size: .72rem; }
-  /* group styling: bubble rows bold, sub-lanes smaller */
-  .vis-label { font-size: .82rem; }
-  .vis-group-level-0 { font-weight: 600; background: #f0f0f0aa; }
-  .vis-group-level-1 .vis-inner { font-size: .74rem; color: #666; padding-left: .8rem; }
+  /* labels */
+  .vis-label { font-size: .78rem; }
   .nascent-flag { background: #92400e1a; border: 1px solid #b45309; color: #92400e;
-    display: inline-block; font-size: .66rem; padding: .05rem .45rem; border-radius: 99px; margin-left: .4rem; }
+    display: inline-block; font-size: .64rem; padding: .04rem .4rem; border-radius: 99px; margin-left: .35rem; }
   .descent-flag { background: #1d4ed81a; border: 1px solid #3b82f6; color: #1d4ed8;
-    display: inline-block; font-size: .66rem; padding: .05rem .45rem; border-radius: 99px; margin-left: .4rem;
+    display: inline-block; font-size: .64rem; padding: .04rem .4rem; border-radius: 99px; margin-left: .35rem;
     cursor: help; }
-  p.note b.desc { color: #1d4ed8; }
-  #err { color: #dc2626; font-size: .8rem; white-space: pre-wrap; }
+  #err { color: #dc2626; font-size: .78rem; white-space: pre-wrap; }
 </style>
 </head>
 <body>
 <h1>Chronology X — Bubbles across time</h1>
-<p class="note">Nested <b>groups</b>: each bubble (bold row) has sub-lanes — <i>structure</i> (calendar changes), <i>era</i> (counting systems with epochs), <i>renames</i> (AD → VE → CE), <i>testimony</i> (what that corpus's own document says).
-Nascent bubbles are originals ASSUMED held per English descriptions (owner rule). Years parsed from source-stated strings for display only; conversion is Phase 2. Click group labels to collapse/expand.</p>
+<p class="note">VERTICAL timeline — time flows <b>top → bottom</b>; each <b>column</b> is a corpus bubble (its own language / script / numerals / calendar), ordered by the descent chain (Julian I → Diocletian → Julian II/Dionysian → Gregorian → Common Era).
+Nascent sources are ASSUMED held per English descriptions (owner rule). Years parsed from source-stated strings for display only; conversion is the Phase 2 alignment layer.</p>
+<div class="nav" id="nav">
+  <button id="btn-zoom-in" title="zoom in">＋ zoom in</button>
+  <button id="btn-zoom-out" title="zoom out">－ zoom out</button>
+  <span class="sep"></span>
+  <button id="btn-up" title="pan up (earlier)">↑ pan up</button>
+  <button id="btn-down" title="pan down (later)">↓ pan down</button>
+  <span class="sep"></span>
+  <button id="btn-left" title="pan left">← pan left</button>
+  <button id="btn-right" title="pan right">→ pan right</button>
+  <span class="sep"></span>
+  <button id="btn-fit" title="fit all">⤢ fit all</button>
+  <button id="btn-start" title="jump to start">⇧ start</button>
+  <button id="btn-end" title="jump to end">⇥ end</button>
+  <span class="sep"></span>
+  <span class="range" id="range">—</span>
+</div>
 <div class="legend">
   <span><i class="sw" style="background:#4f7df88"></i>calendar change</span>
   <span><i class="sw" style="background:#c25f0e88"></i>structural reform</span>
-  <span><i class="sw" style="background:#3f9d6b88"></i>era band (epoch)</span>
+  <span><i class="sw" style="background:#2563eb88"></i>calendar state (as operated)</span>
+  <span><i class="sw" style="background:#3f9d6b88"></i>era band</span>
   <span><i class="sw" style="background:#7c3aed88"></i>era rename</span>
-  <span><i class="sw" style="background:#9ca3af66"></i>nascent/assumed</span>
 </div>
 <div id="err"></div>
 <div id="timeline"></div>
@@ -55,15 +76,16 @@ function ymd(y) {
   return d;
 }
 
-// subgroup kinds per bubble
 const SUB = [
   { key: 'struct', label: 'structure' },
   { key: 'era',    label: 'eras' },
   { key: 'rename', label: 'renames' },
 ];
 
+let TIMELINE = null;
+
 async function load() {
-  const bust = '?cb=' + Date.now();   // always-fresh data (GitHub Pages caches aggressively)
+  const bust = '?cb=' + Date.now();   // always-fresh data (Pages caches aggressively)
   const [bubblesData, ceData] = await Promise.all([
     fetch('data/bubbles.json' + bust).then(r => r.json()),
     fetch('data/ce_lineage.json' + bust).then(r => r.json()),
@@ -72,23 +94,21 @@ async function load() {
   const groups = new vis.DataSet();
   const items = new vis.DataSet();
 
-  // export order IS chronological (earliest attested year first) — trust it
-  const sorted = [...bubblesData.bubbles];
+  // export order IS the descent chain — trust it
+  const sorted = [...bubblesData.bubbles].filter(b => b.status !== 'retired');
 
   let gid = 0;
   for (const b of sorted) {
-    const id = ++gid;                      // bubble group id (numeric)
+    const id = ++gid;
     const gkey = 'b' + id;
-    const shortName = b.label.replace(' — nascent bubble', '');
+    const shortName = b.label;
 
-    // count what this bubble actually has, to decide sub-lanes
     const renameItems = b.label.includes('English') ? ceData.changes.filter(
       c => (c.change_type || '').includes('renam')) : [];
     const hasStruct = b.calendar_changes.length > 0;
     const hasEra = b.eras.length > 0;
     const hasRename = renameItems.length > 0;
 
-    // subgroup ids
     const subIds = [];
     const childDefs = [];
     if (hasStruct) { childDefs.push({ key: SUB[0].key, label: SUB[0].label }); }
@@ -98,33 +118,27 @@ async function load() {
     for (const cd of childDefs) {
       const cid = ++gid;
       subIds.push(cid);
-      groups.add({
-        id: cid,
-        content: cd.label,
-        level: 1,
-        treeLevel: 1,
-      });
+      groups.add({ id: cid, content: cd.label, level: 1, treeLevel: 1 });
     }
 
     groups.add({
       id: id,
       content: shortName + (b.nascent ? ' <span class="nascent-flag">assumed</span>' : '') +
         (b.descent_type
-          ? ` <span class="descent-flag" title="descent: ${b.descent_type} → ${(b.descent_to||'').replace(' — nascent bubble','')}">⤵ ${b.descent_type === 'replaced_by' ? 'replaced by' : b.descent_type === 'reformed_into' ? 'reformed into' : 'described by'}</span>`
+          ? ` <span class="descent-flag" title="descent: ${b.descent_type} → ${(b.descent_to||'').replace(' — nascent bubble','')}">⤵</span>`
           : ''),
       value: id,
       nestedGroups: subIds.length ? subIds : undefined,
       treeLevel: 0,
     });
 
-    // map sub-lane ids
     const sub = {};
     let k = 0;
     if (hasStruct) sub.struct = subIds[k++];
     if (hasEra)    sub.era = subIds[k++];
     if (hasRename) sub.rename = subIds[k++];
 
-    // ---- structure items (stacked); calendar STATES render as back-to-back ranges ----
+    // structure: calendar STATES as ranges, others as points
     for (const c of b.calendar_changes) {
       const y = c.year_display;
       if (y === null || y === undefined) continue;
@@ -133,10 +147,11 @@ async function load() {
       if (isState) {
         items.add({
           group: sub.struct, id: gkey + '-c-' + c.id,
-          content: `${c.name}<br><small>${c.date_original} → ${c.span_until_display || ''}</small>`,
-          start: ymd(y), end: ymd(c.span_until_display !== null && c.span_until_display !== undefined ? c.span_until_display : y + 1),
+          content: `${c.name}<br><small>${c.span_until_original || ''}</small>`,
+          start: ymd(y),
+          end: ymd(c.span_until_display !== null && c.span_until_display !== undefined ? c.span_until_display : y + 1),
           type: 'range', className: 'b-state',
-          title: `${c.name}\ncalendar state: ${c.date_original} → ${c.span_until_display}\nstatus: ${c.status}`,
+          title: `${c.name}\ncalendar state: ${c.date_original} → ${c.span_until_original}\nstatus: ${c.status}`,
         });
       } else {
         items.add({
@@ -149,7 +164,7 @@ async function load() {
       }
     }
 
-    // ---- era bands ----
+    // era bands
     for (const e of b.eras) {
       const yStart = (e.epoch_year !== null && e.epoch_year !== undefined)
         ? e.epoch_year
@@ -164,7 +179,7 @@ async function load() {
       });
     }
 
-    // ---- rename items (English bubble) ----
+    // rename items (English bubble)
     for (const ch of renameItems) {
       const y = parseInt(String(ch.date_original || '').replace(/[^0-9-]/g, ''), 10);
       if (isNaN(y)) continue;
@@ -179,18 +194,76 @@ async function load() {
   }
 
   const options = {
-    orientation: { axis: 'top' },
-    stack: true,                    // stack within lanes — readable overlap handling
+    orientation: { axis: 'left', item: 'top' },   // VERTICAL: time flows top→bottom
+    verticalScroll: true,
+    stack: true,
     groupOrder: 'value',
     groupHeightMode: 'auto',
-    showCurrentTime: true,
-    zoomMin: 1000 * 60 * 60 * 24 * 365,
-    zoomMax: 1000 * 60 * 60 * 24 * 365 * 3000,
-    start: ymd(-60), end: ymd(1900),
+    showCurrentTime: false,
+    zoomMin: 1000 * 60 * 60 * 24 * 30,           // ~1 month
+    zoomMax: 1000 * 60 * 60 * 24 * 365 * 3000,   // 3000 years
+    start: ymd(-60), end: ymd(2100),
     tooltip: { followMouse: true },
     editable: false,
   };
-  new vis.Timeline(document.getElementById('timeline'), items, groups, options);
+  TIMELINE = new vis.Timeline(document.getElementById('timeline'), items, groups, options);
+  bindNav();
+}
+
+function bindNav() {
+  const $ = (id) => document.getElementById(id);
+  const pct = 0.2;
+
+  $('btn-zoom-in').onclick  = () => TIMELINE.zoomIn(pct);
+  $('btn-zoom-out').onclick = () => TIMELINE.zoomOut(pct);
+
+  $('btn-up').onclick    = () => moveWindow(-pct);
+  $('btn-down').onclick  = () => moveWindow(pct);
+  $('btn-left').onclick  = () => moveWindowHorizontal(-pct);
+  $('btn-right').onclick = () => moveWindowHorizontal(pct);
+
+  $('btn-fit').onclick   = () => TIMELINE.fit({ animation: { duration: 300, easingFunction: 'easeInOutQuad' } });
+  $('btn-start').onclick = () => TIMELINE.moveTo(ymd(-60), { animation: { duration: 300, easingFunction: 'easeInOutQuad' } });
+  $('btn-end').onclick   = () => TIMELINE.moveTo(ymd(2100), { animation: { duration: 300, easingFunction: 'easeInOutQuad' } });
+
+  // range readout + keyboard support
+  const fmt = (d) => {
+    const y = d.getFullYear();
+    return y < 1 ? `${1 - y} BCE` : `${y} CE`;
+  };
+  const update = () => {
+    if (!TIMELINE) return;
+    const r = TIMELINE.getWindow();
+    $('range').textContent = `viewing: ${fmt(r.start)} → ${fmt(r.end)}`;
+  };
+  TIMELINE.on('rangechange', update);
+  update();
+
+  window.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT') return;
+    switch (e.key) {
+      case '+': case '=': TIMELINE.zoomIn(pct); break;
+      case '-': case '_': TIMELINE.zoomOut(pct); break;
+      case 'ArrowUp': e.preventDefault(); moveWindow(-pct); break;
+      case 'ArrowDown': e.preventDefault(); moveWindow(pct); break;
+      case 'ArrowLeft': e.preventDefault(); moveWindowHorizontal(-pct); break;
+      case 'ArrowRight': e.preventDefault(); moveWindowHorizontal(pct); break;
+      case 'f': case 'F': TIMELINE.fit({ animation: { duration: 300, easingFunction: 'easeInOutQuad' } }); break;
+    }
+  });
+}
+
+// move the visible window along the TIME axis (vertical: up = earlier)
+function moveWindow(fraction) {
+  const r = TIMELINE.getWindow();
+  const span = r.end - r.start;
+  TIMELINE.setWindow(r.start + span * fraction, r.end + span * fraction,
+    { animation: { duration: 200, easingFunction: 'easeInOutQuad' } });
+}
+// pan horizontally (across columns) — nudge the panel scroll
+function moveWindowHorizontal(fraction) {
+  const tl = document.querySelector('.vis-timeline');
+  if (tl) tl.scrollLeft += tl.clientWidth * fraction;
 }
 
 load().catch(e => {
