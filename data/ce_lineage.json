@@ -77,6 +77,69 @@
       "change_type": "renaming (regional variant)",
       "date_original": "1582",
       "status": "proposed"
+    },
+    {
+      "id": "163a2c6b-cbc7-4521-9467-bc20a74f9e92",
+      "name": "Realigning year-start: 46 BCE made 445 days (\"last year of confusion\")",
+      "change_type": "realignment",
+      "date_original": "46 BCE",
+      "status": "proposed"
+    },
+    {
+      "id": "75ca8bc3-88f9-48a2-b5dc-678439b1c624",
+      "name": "Julian calendar created (Caesar's edict, design with Sosigenes)",
+      "change_type": "creation",
+      "date_original": "1 January 45 BCE",
+      "status": "proposed"
+    },
+    {
+      "id": "19e56b7d-926a-4efa-b734-a7d30949e29b",
+      "name": "Quintilis renamed Iulius (July)",
+      "change_type": "renaming",
+      "date_original": "44 BCE",
+      "status": "proposed"
+    },
+    {
+      "id": "0537192e-81dd-4300-8f06-83c990b75e59",
+      "name": "Sextilis renamed Augustus",
+      "change_type": "renaming",
+      "date_original": "8 BCE",
+      "status": "proposed"
+    },
+    {
+      "id": "20ea8cc7-1c1c-4b0c-8cff-54b4f6dc6fc5",
+      "name": "Leap-year error: intercalation every 3 years instead of 4",
+      "change_type": "operating error",
+      "date_original": "42 BCE – 9 BCE",
+      "status": "proposed"
+    },
+    {
+      "id": "0ea4395c-1027-48a2-96f1-c7747ed72408",
+      "name": "Augustus's correction: leap days suspended for 12 years",
+      "change_type": "correction",
+      "date_original": "8 BCE",
+      "status": "proposed"
+    },
+    {
+      "id": "a542e48d-bd72-49ff-9f2d-54b43978f720",
+      "name": "Quadriennial leap years resumed as Caesar intended",
+      "change_type": "stabilization",
+      "date_original": "AD 4 (resumption; AD 8 first leap year under the standard reconstruction)",
+      "status": "proposed"
+    },
+    {
+      "id": "6b3863c9-888d-4324-9143-eba999bd965c",
+      "name": "7-day week displaces the 8-day nundinal cycle",
+      "change_type": "structural add-on",
+      "date_original": "1st century AD",
+      "status": "proposed"
+    },
+    {
+      "id": "3726cd1e-5c14-4c47-a22f-ca9458bb8bb2",
+      "name": "Gregorian reform (leap rule change; 10 days omitted)",
+      "change_type": "structural reform",
+      "date_original": "1582",
+      "status": "proposed"
     }
   ],
   "lineage": [
@@ -88,6 +151,31 @@
     {
       "from": "1ba0677c-b1f7-498b-b716-c7a9f277349a",
       "to": "05b38f8a-8784-4375-96bb-7cbdba6173a4",
+      "type": "derived_from"
+    },
+    {
+      "from": "163a2c6b-cbc7-4521-9467-bc20a74f9e92",
+      "to": "75ca8bc3-88f9-48a2-b5dc-678439b1c624",
+      "type": "derived_from"
+    },
+    {
+      "from": "75ca8bc3-88f9-48a2-b5dc-678439b1c624",
+      "to": "20ea8cc7-1c1c-4b0c-8cff-54b4f6dc6fc5",
+      "type": "derived_from"
+    },
+    {
+      "from": "20ea8cc7-1c1c-4b0c-8cff-54b4f6dc6fc5",
+      "to": "0ea4395c-1027-48a2-96f1-c7747ed72408",
+      "type": "derived_from"
+    },
+    {
+      "from": "0ea4395c-1027-48a2-96f1-c7747ed72408",
+      "to": "a542e48d-bd72-49ff-9f2d-54b43978f720",
+      "type": "derived_from"
+    },
+    {
+      "from": "a542e48d-bd72-49ff-9f2d-54b43978f720",
+      "to": "3726cd1e-5c14-4c47-a22f-ca9458bb8bb2",
       "type": "derived_from"
     }
   ]
