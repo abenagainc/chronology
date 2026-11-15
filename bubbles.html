@@ -54,6 +54,9 @@ fetch('data/bubbles.json').then(r => r.json()).then(data => {
     groups.add({ id: gid, content: b.label.replace(' — nascent bubble', '') +
       (b.nascent ? ' <span class="nascent-flag">assumed</span>' : ''), value: gid });
 
+    // helper: build a Date from a possibly-negative year (JS Date handles BCE fine)
+    const ymd = (y) => { const d = new Date(2000, 0, 15); d.setFullYear(y, 0, 1); return d; };
+
     // calendar-change nodes as point items
     for (const c of b.calendar_changes) {
       const y = c.year_display;
@@ -62,7 +65,7 @@ fetch('data/bubbles.json').then(r => r.json()).then(data => {
       items.add({
         group: gid, id: 'c-' + c.id,
         content: `${c.name}<br><small>${c.date_original} · ${c.change_type}</small>`,
-        start: `${String(y).padStart(4, '0')}-01-01`,
+        start: ymd(y),
         className: 'b-cal' + (reform ? ' reform' : ''),
         title: `${c.name}\nchange type: ${c.change_type}\ndate as stated: ${c.date_original}\nstatus: ${c.status}`,
       });
@@ -74,8 +77,8 @@ fetch('data/bubbles.json').then(r => r.json()).then(data => {
       items.add({
         group: gid, id: 'e-' + e.id,
         content: `${e.name}<br><small>epoch: ${e.epoch || ''}</small>`,
-        start: `${String(yStart).padStart(4, '0')}-01-01`,
-        end: '2100-01-01', type: 'range', className: 'b-era',
+        start: ymd(yStart),
+        end: ymd(2100), type: 'range', className: 'b-era',
         title: `${e.name}\nepoch: ${e.epoch}\nepoch date as stated: ${e.epoch_date}\nstatus: ${e.status}`,
       });
       // renames as points on the era band
@@ -98,7 +101,7 @@ fetch('data/bubbles.json').then(r => r.json()).then(data => {
       items.add({
         group: 1, id: 'r-' + ch.id,
         content: `${ch.name}<br><small>${ch.date_original} · rename</small>`,
-        start: `${String(y).padStart(4, '0')}-01-01`,
+        start: ymd(y),
         className: 'b-rename',
         title: `${ch.name}\nrename of era: Dionysian era (Anno Domini)\ndate as stated: ${ch.date_original}\nstatus: ${ch.status}`,
       });
