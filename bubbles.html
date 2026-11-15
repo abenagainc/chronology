@@ -14,27 +14,31 @@
   .legend { font-size: .75rem; margin: .4rem 0 1rem; color: #555; }
   .legend span { margin-right: 1.1rem; }
   .sw { display: inline-block; width: 11px; height: 11px; border-radius: 2px; margin-right: .25rem; vertical-align: middle; }
-  #timeline { width: 100%; height: 72vh; border: 1px solid #ccc2; border-radius: 6px; }
+  #timeline { width: 100%; height: 74vh; border: 1px solid #ccc2; border-radius: 6px; }
+  /* item classes */
   .vis-item.b-cal { background: #4f7cdf2e; border-color: #4f7cdf; }
   .vis-item.b-cal.reform { background: #c25f0e2e; border-color: #c25f0e; }
   .vis-item.b-era { background: #3f9d6b2e; border-color: #3f9d6b; }
   .vis-item.b-rename { background: #7c3aed2e; border-color: #7c3aed; }
+  /* group styling: bubble rows bold, sub-lanes smaller */
+  .vis-label { font-size: .82rem; }
+  .vis-group-level-0 { font-weight: 600; background: #f0f0f0aa; }
+  .vis-group-level-1 .vis-inner { font-size: .74rem; color: #666; padding-left: .8rem; }
   .nascent-flag { background: #92400e1a; border: 1px solid #b45309; color: #92400e;
-    display: inline-block; font-size: .7rem; padding: .05rem .45rem; border-radius: 99px; margin-left: .4rem; }
+    display: inline-block; font-size: .66rem; padding: .05rem .45rem; border-radius: 99px; margin-left: .4rem; }
   #err { color: #dc2626; font-size: .8rem; white-space: pre-wrap; }
 </style>
 </head>
 <body>
 <h1>Chronology X — Bubbles across time</h1>
-<p class="note">Each group is a <b>bubble</b>: an independent corpus with its own language, script, calendar and number system.
-Blue/orange = calendar change nodes (structure); green = <b>eras</b> (counting systems, epochs); purple = era renames (AD → VE → CE);
-dashed grey = <b>nascent bubbles</b> — originals ASSUMED per English descriptions (owner rule), not yet examined.
-Years parsed from source-stated strings for display only; real conversion is the Phase 2 alignment layer.</p>
+<p class="note">Nested <b>groups</b>: each bubble (bold row) has sub-lanes — <i>structure</i> (calendar changes), <i>era</i> (counting systems with epochs), <i>renames</i> (AD → VE → CE), <i>testimony</i> (what that corpus's own document says).
+Nascent bubbles are originals ASSUMED held per English descriptions (owner rule). Years parsed from source-stated strings for display only; conversion is Phase 2. Click group labels to collapse/expand.</p>
 <div class="legend">
   <span><i class="sw" style="background:#4f7df88"></i>calendar change</span>
   <span><i class="sw" style="background:#c25f0e88"></i>structural reform</span>
-  <span><i class="sw" style="background:#3f9d6b88"></i>era (epoch)</span>
+  <span><i class="sw" style="background:#3f9d6b88"></i>era band (epoch)</span>
   <span><i class="sw" style="background:#7c3aed88"></i>era rename</span>
+  <span><i class="sw" style="background:#9ca3af66"></i>nascent/assumed</span>
 </div>
 <div id="err"></div>
 <div id="timeline"></div>
@@ -46,6 +50,13 @@ function ymd(y) {
   return d;
 }
 
+// subgroup kinds per bubble
+const SUB = [
+  { key: 'struct', label: 'structure' },
+  { key: 'era',    label: 'eras' },
+  { key: 'rename', label: 'renames' },
+];
+
 async function load() {
   const [bubblesData, ceData] = await Promise.all([
     fetch('data/bubbles.json').then(r => r.json()),
@@ -54,29 +65,66 @@ async function load() {
 
   const groups = new vis.DataSet();
   const items = new vis.DataSet();
-  let g = 0;
 
   const order = ["Common Era calendar (English-language scholarship)"];
   const sorted = [...bubblesData.bubbles].sort((a, b) =>
     (order.includes(b.label) ? 1 : 0) - (order.includes(a.label) ? 1 : 0) ||
     a.label.localeCompare(b.label));
 
+  let gid = 0;
   for (const b of sorted) {
-    const gid = ++g;
+    const id = ++gid;                      // bubble group id (numeric)
+    const gkey = 'b' + id;
+    const shortName = b.label.replace(' — nascent bubble', '');
+
+    // count what this bubble actually has, to decide sub-lanes
+    const renameItems = b.label.includes('English') ? ceData.changes.filter(
+      c => (c.change_type || '').includes('renam')) : [];
+    const hasStruct = b.calendar_changes.length > 0;
+    const hasEra = b.eras.length > 0;
+    const hasRename = renameItems.length > 0;
+
+    // subgroup ids
+    const subIds = [];
+    const childDefs = [];
+    if (hasStruct) { childDefs.push({ key: SUB[0].key, label: SUB[0].label }); }
+    if (hasEra)    { childDefs.push({ key: SUB[1].key, label: SUB[1].label }); }
+    if (hasRename) { childDefs.push({ key: SUB[2].key, label: SUB[2].label }); }
+
+    for (const cd of childDefs) {
+      const cid = ++gid;
+      subIds.push(cid);
+      groups.add({
+        id: cid,
+        content: cd.label,
+        level: 1,
+        treeLevel: 1,
+      });
+    }
+
     groups.add({
-      id: gid,
-      content: b.label.replace(' — nascent bubble', '') +
-        (b.nascent ? ' <span class="nascent-flag">assumed</span>' : ''),
-      value: gid,
+      id: id,
+      content: shortName + (b.nascent ? ' <span class="nascent-flag">assumed</span>' : ''),
+      value: id,
+      nestedGroups: subIds.length ? subIds : undefined,
+      treeLevel: 0,
     });
 
-    // calendar-change nodes as point items
+    // map sub-lane ids
+    const sub = {};
+    let k = 0;
+    if (hasStruct) sub.struct = subIds[k++];
+    if (hasEra)    sub.era = subIds[k++];
+    if (hasRename) sub.rename = subIds[k++];
+
+    // ---- structure items (stacked) ----
+    let si = 0;
     for (const c of b.calendar_changes) {
       const y = c.year_display;
       if (y === null || y === undefined) continue;
       const reform = (c.change_type || '').includes('reform');
       items.add({
-        group: gid, id: 'c-' + c.id,
+        group: sub.struct, id: gkey + '-c-' + c.id,
         content: `${c.name}<br><small>${c.date_original} · ${c.change_type}</small>`,
         start: ymd(y),
         className: 'b-cal' + (reform ? ' reform' : ''),
@@ -84,43 +132,44 @@ async function load() {
       });
     }
 
-    // eras: open-ended band from epoch date
+    // ---- era bands ----
     for (const e of b.eras) {
       const yStart = parseInt(String(e.epoch_date || '').replace(/[^0-9-]/g, ''), 10);
       if (isNaN(yStart)) continue;
       items.add({
-        group: gid, id: 'e-' + e.id,
+        group: sub.era, id: gkey + '-e-' + e.id,
         content: `${e.name}<br><small>epoch: ${e.epoch || ''}</small>`,
         start: ymd(yStart), end: ymd(2100),
         type: 'range', className: 'b-era',
         title: `${e.name}\nepoch: ${e.epoch}\nepoch date as stated: ${e.epoch_date}\nstatus: ${e.status}`,
       });
     }
-  }
 
-  // era rename events (AD→VE→CE) into the main bubble's group (id 1)
-  for (const ch of ceData.changes) {
-    if (!(ch.change_type || '').includes('renam')) continue;
-    const y = parseInt(String(ch.date_original || '').replace(/[^0-9-]/g, ''), 10);
-    if (isNaN(y)) continue;
-    items.add({
-      group: 1, id: 'r-' + ch.id,
-      content: `${ch.name}<br><small>${ch.date_original} · rename</small>`,
-      start: ymd(y),
-      className: 'b-rename',
-      title: `${ch.name}\nrename of era: Dionysian era (Anno Domini)\ndate as stated: ${ch.date_original}\nstatus: ${ch.status}`,
-    });
+    // ---- rename items (English bubble) ----
+    for (const ch of renameItems) {
+      const y = parseInt(String(ch.date_original || '').replace(/[^0-9-]/g, ''), 10);
+      if (isNaN(y)) continue;
+      items.add({
+        group: sub.rename, id: gkey + '-r-' + ch.id,
+        content: `${ch.name}<br><small>${ch.date_original} · rename</small>`,
+        start: ymd(y),
+        className: 'b-rename',
+        title: `${ch.name}\nrename of era: Dionysian era (Anno Domini)\ndate as stated: ${ch.date_original}\nstatus: ${ch.status}`,
+      });
+    }
   }
 
   const options = {
     orientation: { axis: 'top' },
-    stack: false,
+    stack: true,                    // stack within lanes — readable overlap handling
     groupOrder: 'value',
+    groupHeightMode: 'auto',
     showCurrentTime: true,
     zoomMin: 1000 * 60 * 60 * 24 * 365,
     zoomMax: 1000 * 60 * 60 * 24 * 365 * 3000,
     start: ymd(-60), end: ymd(1900),
     tooltip: { followMouse: true },
+    editable: false,
   };
   new vis.Timeline(document.getElementById('timeline'), items, groups, options);
 }
