@@ -2,28 +2,50 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Chronology X</title>
+<title>Chronology — Abe Naga</title>
 <style>
   :root { color-scheme: light dark; }
-  body { font-family: -apple-system, "Segoe UI", sans-serif; margin: 0; padding: 2rem;
-         background: #fafafa; color: #222; }
-  h1 { font-size: 1.4rem; }
-  .note { color: #b26a00; font-size: .85rem; max-width: 40rem; margin: .4rem 0 1.4rem; }
-  ul { font-size: .9rem; max-width: 40rem; line-height: 1.7; }
-  a { color: #2563eb; }
-  footer { margin-top: 2.5rem; font-size: .75rem; color: #777; }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         margin: 0; padding: 3rem 2rem; background: #fafafa; color: #1a1b1e; }
+  .wrap { max-width: 46rem; margin: 0 auto; }
+  h1 { font-size: 1.5rem; margin: 0 0 .3rem; }
+  .sub { color: #6b7280; font-size: .9rem; margin: 0 0 2rem; }
+  .card { display: block; text-decoration: none; color: inherit; background: #fff;
+          border: 1px solid #e2e3e6; border-radius: 10px; padding: 1.2rem 1.4rem;
+          margin-bottom: 1rem; transition: border-color .15s, box-shadow .15s; }
+  .card:hover { border-color: #4f7cdf; box-shadow: 0 2px 12px #4f7cdf22; }
+  .card h2 { font-size: 1.05rem; margin: 0 0 .35rem; }
+  .card p { font-size: .85rem; color: #6b7280; margin: 0 0 .6rem; }
+  .card .go { font-size: .8rem; color: #4f7cdf; font-weight: 600; }
+  .tag { display: inline-block; font-size: .65rem; font-weight: 600;
+         border-radius: 99px; padding: .12rem .5rem; margin-left: .4rem;
+         vertical-align: middle; }
+  .tag.evidence { background: #fef3c7; color: #92400e; }
+  .tag.prototype { background: #dbeafe; color: #1e40af; }
+  footer { margin-top: 2.5rem; font-size: .75rem; color: #9ca3af; }
 </style>
 </head>
 <body>
-<h1>Chronology X — Historical Network Graph v2</h1>
-<p class="note">⚠ Early build — all data currently shown is <b>PROPOSED</b>, pending owner review (spec §11.6).</p>
-<ul>
-  <li><a href="ce-lineage.html">Common Era calendar lineage timeline</a> — live from the database</li>
-  <li><a href="timeline.html">CE lineage (illustrative seed timeline)</a></li>
-  <li><a href="inspector.html">Data inspector</a> — raw tables via the public read path (accepted claims only)</li>
-  <li><a href="review.html">Review queue</a> — owner sign-in (magic link)</li>
-  <li><a href="bubbles.html">Bubbles timeline</a> — all corpus-bubbles across time</li>
-</ul>
-<footer>Chronology X · evidence-first historical research database · spec v2 · <span id="ref"></span></footer>
+<div class="wrap">
+  <h1>Chronology</h1>
+  <p class="sub">Two tools — one evidence database, one visual calendar explorer.</p>
+
+  <a class="card" href="x/">
+    <h2>Chronology X <span class="tag evidence">evidence database</span></h2>
+    <p>Historical Network Graph v2 — corpus bubbles, sources, claims and review.
+       All data is proposed until accepted by owner review.</p>
+    <span class="go">Open Chronology X →</span>
+  </a>
+
+  <a class="card" href="s/">
+    <h2>Chronology S <span class="tag prototype">visual prototype</span></h2>
+    <p>Side-by-side vertical calendars on one shared day scale — Gregorian,
+       Hijri and custom rule-driven calendars, with events.</p>
+    <span class="go">Open Chronology S →</span>
+  </a>
+
+  <footer>Chronology · abenaga.com</footer>
+</div>
 </body>
 </html>
